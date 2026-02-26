@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 import httpx
 
-from twitter_mcp.config import API_BASE_URL, API_TOKEN
+from opentwitter_mcp.config import API_BASE_URL, API_TOKEN
 
 logger = logging.getLogger(__name__)
 
