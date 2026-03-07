@@ -84,6 +84,10 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_follower_events` | フォロー/フォロー解除イベント取得 |
 | `get_twitter_deleted_tweets` | 削除ツイート取得 |
 | `get_twitter_kol_followers` | KOL（キーオピニオンリーダー）フォロワー取得 |
+| `get_twitter_article_by_id` | ID で Twitter 記事取得 |
+| `get_twitter_watch` | 監視中の Twitter ユーザー一覧取得 |
+| `add_twitter_watch` | Twitter ユーザーを監視リストに追加 |
+| `delete_twitter_watch` | 監視リストから Twitter ユーザーを削除 |
 
 ---
 
@@ -118,6 +122,159 @@ $env:TWITTER_TOKEN = "<your-token>"
   "max_rows": 100
 }
 ```
+
+---
+
+## WebSocket リアルタイム購読
+
+**エンドポイント**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
+
+監視している Twitter アカウントのリアルタイムイベントを購読します。
+
+### Twitter イベントを購読
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "twitter.subscribe"
+}
+```
+
+**レスポンス**:
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "success": true
+  }
+}
+```
+
+### 購読解除
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "twitter.unsubscribe"
+}
+```
+
+### サーバープッシュ - Twitter イベント
+
+監視しているアカウントにアクティビティがあると、サーバーがプッシュします：
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "twitter.event",
+  "params": {
+    "id": 123456,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "profileUrl": "https://twitter.com/elonmusk",
+    "eventType": "NEW_TWEET",
+    "content": "...",
+    "ca": "0x1234...",
+    "remark": "カスタムメモ",
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+}
+```
+
+**注意**：`content` フィールドの構造はイベントタイプにより異なります（以下参照）。
+```
+
+**イベントタイプとコンテンツ構造**:
+
+#### ツイートイベント
+- `NEW_TWEET` - 新しいツイート投稿
+- `NEW_TWEET_REPLY` - 返信ツイート投稿
+- `NEW_TWEET_QUOTE` - 引用ツイート投稿
+- `NEW_RETWEET` - リツイート
+- `CA` - CA アドレス付きツイート
+
+ツイートイベントの content 構造：
+```json
+{
+  "id": "1234567890",
+  "text": "ツイート内容...",
+  "createdAt": "2026-03-06T10:00:00Z",
+  "language": "en",
+  "retweetCount": 100,
+  "favoriteCount": 500,
+  "replyCount": 20,
+  "quoteCount": 10,
+  "viewCount": 10000,
+  "userScreenName": "elonmusk",
+  "userName": "Elon Musk",
+  "userIdStr": "44196397",
+  "userFollowers": 170000000,
+  "userVerified": true,
+  "conversationId": "1234567890",
+  "isReply": false,
+  "isQuote": false,
+  "hashtags": ["crypto", "bitcoin"],
+  "media": [
+    {
+      "type": "photo",
+      "url": "https://...",
+      "thumbUrl": "https://..."
+    }
+  ],
+  "urls": [
+    {
+      "url": "https://...",
+      "expandedUrl": "https://...",
+      "displayUrl": "example.com"
+    }
+  ],
+  "mentions": [
+    {
+      "username": "VitalikButerin",
+      "name": "Vitalik Buterin"
+    }
+  ]
+}
+```
+
+#### フォロワーイベント
+- `NEW_FOLLOWER` - 新しいフォロワー
+- `NEW_UNFOLLOWER` - フォロー解除
+
+フォロワーイベントの content 構造（配列）：
+```json
+[
+  {
+    "id": 123,
+    "twId": 44196397,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "twUserLabel": "Verified",
+    "description": "ユーザー紹介...",
+    "profileUrl": "https://...",
+    "bannerUrl": "https://...",
+    "followerCount": 170000000,
+    "friendCount": 500,
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+]
+```
+
+#### プロフィール更新イベント
+- `UPDATE_NAME` - ユーザー名変更（content: 新しい名前の文字列）
+- `UPDATE_DESCRIPTION` - 紹介文更新（content: 新しい紹介文の文字列）
+- `UPDATE_AVATAR` - プロフィール画像変更（content: 新しいアバター URL 文字列）
+- `UPDATE_BANNER` - バナー画像変更（content: 新しいバナー URL 文字列）
+
+#### その他のイベント
+- `TWEET_TOPPING` - ツイート固定
+- `DELETE` - ツイート削除
+- `SYSTEM` - システムイベント
+- `TRANSLATE` - ツイート翻訳
+- `CA_CREATE` - CA トークン作成
 
 ---
 

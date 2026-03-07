@@ -84,6 +84,10 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | `get_twitter_follower_events` | 获取关注/取关事件 |
 | `get_twitter_deleted_tweets` | 获取删推数据 |
 | `get_twitter_kol_followers` | 获取大V关注者 |
+| `get_twitter_article_by_id` | 通过 ID 获取 Twitter 文章 |
+| `get_twitter_watch` | 获取所有监控的 Twitter 用户 |
+| `add_twitter_watch` | 添加 Twitter 用户到监控列表 |
+| `delete_twitter_watch` | 从监控列表删除 Twitter 用户 |
 
 ---
 
@@ -118,6 +122,159 @@ $env:TWITTER_TOKEN = "<your-token>"
   "max_rows": 100
 }
 ```
+
+---
+
+## WebSocket 实时订阅
+
+**端点**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
+
+订阅你监控的 Twitter 账号的实时事件。
+
+### 订阅 Twitter 事件
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "twitter.subscribe"
+}
+```
+
+**响应**:
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "success": true
+  }
+}
+```
+
+### 取消订阅
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "twitter.unsubscribe"
+}
+```
+
+### 服务端推送 - Twitter 事件
+
+当监控的账号有活动时，服务端推送：
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "twitter.event",
+  "params": {
+    "id": 123456,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "profileUrl": "https://twitter.com/elonmusk",
+    "eventType": "NEW_TWEET",
+    "content": "...",
+    "ca": "0x1234...",
+    "remark": "自定义备注",
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+}
+```
+
+**说明**：`content` 字段的结构根据事件类型不同而不同（见下方说明）。
+```
+
+**事件类型和内容结构**:
+
+#### 推文事件
+- `NEW_TWEET` - 发布新推文
+- `NEW_TWEET_REPLY` - 发布回复推文
+- `NEW_TWEET_QUOTE` - 发布引用推文
+- `NEW_RETWEET` - 转推
+- `CA` - 包含 CA 地址的推文
+
+推文事件的 content 结构：
+```json
+{
+  "id": "1234567890",
+  "text": "推文内容...",
+  "createdAt": "2026-03-06T10:00:00Z",
+  "language": "en",
+  "retweetCount": 100,
+  "favoriteCount": 500,
+  "replyCount": 20,
+  "quoteCount": 10,
+  "viewCount": 10000,
+  "userScreenName": "elonmusk",
+  "userName": "Elon Musk",
+  "userIdStr": "44196397",
+  "userFollowers": 170000000,
+  "userVerified": true,
+  "conversationId": "1234567890",
+  "isReply": false,
+  "isQuote": false,
+  "hashtags": ["crypto", "bitcoin"],
+  "media": [
+    {
+      "type": "photo",
+      "url": "https://...",
+      "thumbUrl": "https://..."
+    }
+  ],
+  "urls": [
+    {
+      "url": "https://...",
+      "expandedUrl": "https://...",
+      "displayUrl": "example.com"
+    }
+  ],
+  "mentions": [
+    {
+      "username": "VitalikButerin",
+      "name": "Vitalik Buterin"
+    }
+  ]
+}
+```
+
+#### 关注事件
+- `NEW_FOLLOWER` - 新增关注者
+- `NEW_UNFOLLOWER` - 取消关注
+
+关注事件的 content 结构（数组）：
+```json
+[
+  {
+    "id": 123,
+    "twId": 44196397,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "twUserLabel": "Verified",
+    "description": "用户简介...",
+    "profileUrl": "https://...",
+    "bannerUrl": "https://...",
+    "followerCount": 170000000,
+    "friendCount": 500,
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+]
+```
+
+#### 资料更新事件
+- `UPDATE_NAME` - 用户名变更（content: 新名称字符串）
+- `UPDATE_DESCRIPTION` - 简介更新（content: 新简介字符串）
+- `UPDATE_AVATAR` - 头像变更（content: 新头像 URL 字符串）
+- `UPDATE_BANNER` - 背景图变更（content: 新背景图 URL 字符串）
+
+#### 其他事件
+- `TWEET_TOPPING` - 推文置顶
+- `DELETE` - 推文删除
+- `SYSTEM` - 系统事件
+- `TRANSLATE` - 推文翻译
+- `CA_CREATE` - CA 代币创建
 
 ---
 

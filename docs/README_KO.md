@@ -84,6 +84,10 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | `get_twitter_follower_events` | 팔로우/언팔로우 이벤트 조회 |
 | `get_twitter_deleted_tweets` | 삭제된 트윗 조회 |
 | `get_twitter_kol_followers` | KOL(키 오피니언 리더) 팔로워 조회 |
+| `get_twitter_article_by_id` | ID로 Twitter 기사 조회 |
+| `get_twitter_watch` | 모니터링 중인 Twitter 사용자 목록 조회 |
+| `add_twitter_watch` | Twitter 사용자를 모니터링 목록에 추가 |
+| `delete_twitter_watch` | 모니터링 목록에서 Twitter 사용자 삭제 |
 
 ---
 
@@ -118,6 +122,159 @@ $env:TWITTER_TOKEN = "<your-token>"
   "max_rows": 100
 }
 ```
+
+---
+
+## WebSocket 실시간 구독
+
+**엔드포인트**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
+
+모니터링 중인 Twitter 계정의 실시간 이벤트를 구독합니다.
+
+### Twitter 이벤트 구독
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "twitter.subscribe"
+}
+```
+
+**응답**:
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "success": true
+  }
+}
+```
+
+### 구독 취소
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "twitter.unsubscribe"
+}
+```
+
+### 서버 푸시 - Twitter 이벤트
+
+모니터링 중인 계정에 활동이 있으면 서버가 푸시합니다:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "twitter.event",
+  "params": {
+    "id": 123456,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "profileUrl": "https://twitter.com/elonmusk",
+    "eventType": "NEW_TWEET",
+    "content": "...",
+    "ca": "0x1234...",
+    "remark": "사용자 지정 메모",
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+}
+```
+
+**참고**：`content` 필드의 구조는 이벤트 유형에 따라 다릅니다（아래 참조）。
+```
+
+**이벤트 유형 및 콘텐츠 구조**:
+
+#### 트윗 이벤트
+- `NEW_TWEET` - 새 트윗 게시
+- `NEW_TWEET_REPLY` - 답글 트윗 게시
+- `NEW_TWEET_QUOTE` - 인용 트윗 게시
+- `NEW_RETWEET` - 리트윗
+- `CA` - CA 주소가 포함된 트윗
+
+트윗 이벤트의 content 구조：
+```json
+{
+  "id": "1234567890",
+  "text": "트윗 내용...",
+  "createdAt": "2026-03-06T10:00:00Z",
+  "language": "en",
+  "retweetCount": 100,
+  "favoriteCount": 500,
+  "replyCount": 20,
+  "quoteCount": 10,
+  "viewCount": 10000,
+  "userScreenName": "elonmusk",
+  "userName": "Elon Musk",
+  "userIdStr": "44196397",
+  "userFollowers": 170000000,
+  "userVerified": true,
+  "conversationId": "1234567890",
+  "isReply": false,
+  "isQuote": false,
+  "hashtags": ["crypto", "bitcoin"],
+  "media": [
+    {
+      "type": "photo",
+      "url": "https://...",
+      "thumbUrl": "https://..."
+    }
+  ],
+  "urls": [
+    {
+      "url": "https://...",
+      "expandedUrl": "https://...",
+      "displayUrl": "example.com"
+    }
+  ],
+  "mentions": [
+    {
+      "username": "VitalikButerin",
+      "name": "Vitalik Buterin"
+    }
+  ]
+}
+```
+
+#### 팔로워 이벤트
+- `NEW_FOLLOWER` - 새 팔로워
+- `NEW_UNFOLLOWER` - 언팔로우
+
+팔로워 이벤트의 content 구조（배열）：
+```json
+[
+  {
+    "id": 123,
+    "twId": 44196397,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "twUserLabel": "Verified",
+    "description": "사용자 소개...",
+    "profileUrl": "https://...",
+    "bannerUrl": "https://...",
+    "followerCount": 170000000,
+    "friendCount": 500,
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+]
+```
+
+#### 프로필 업데이트 이벤트
+- `UPDATE_NAME` - 사용자명 변경（content: 새 이름 문자열）
+- `UPDATE_DESCRIPTION` - 소개 업데이트（content: 새 소개 문자열）
+- `UPDATE_AVATAR` - 프로필 사진 변경（content: 새 아바타 URL 문자열）
+- `UPDATE_BANNER` - 배너 이미지 변경（content: 새 배너 URL 문자열）
+
+#### 기타 이벤트
+- `TWEET_TOPPING` - 트윗 고정
+- `DELETE` - 트윗 삭제
+- `SYSTEM` - 시스템 이벤트
+- `TRANSLATE` - 트윗 번역
+- `CA_CREATE` - CA 토큰 생성
 
 ---
 

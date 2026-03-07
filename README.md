@@ -84,6 +84,10 @@ Once connected, just ask your AI assistant:
 | `get_twitter_follower_events` | Get follower/unfollower events |
 | `get_twitter_deleted_tweets` | Get deleted tweets from a user |
 | `get_twitter_kol_followers` | Get KOL (Key Opinion Leader) followers |
+| `get_twitter_article_by_id` | Get Twitter article by ID |
+| `get_twitter_watch` | Get all Twitter monitoring users |
+| `add_twitter_watch` | Add a Twitter user to monitoring list |
+| `delete_twitter_watch` | Delete a Twitter user from monitoring list |
 
 ---
 
@@ -118,6 +122,159 @@ Also supports `config.json` in the project root (env vars take precedence):
   "max_rows": 100
 }
 ```
+
+---
+
+## WebSocket Real-time Subscriptions
+
+**Endpoint**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
+
+Subscribe to real-time events from your monitored Twitter accounts.
+
+### Subscribe to Twitter Events
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "twitter.subscribe"
+}
+```
+
+**Response**:
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "success": true
+  }
+}
+```
+
+### Unsubscribe
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "twitter.unsubscribe"
+}
+```
+
+### Server Push - Twitter Event
+
+When a monitored account has activity, the server pushes:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "twitter.event",
+  "params": {
+    "id": 123456,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "profileUrl": "https://twitter.com/elonmusk",
+    "eventType": "NEW_TWEET",
+    "content": "...",
+    "ca": "0x1234...",
+    "remark": "Custom note",
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+}
+```
+
+**Note**: The `content` field structure varies by event type (see below).
+```
+
+**Event Types and Content Structure**:
+
+#### Tweet Events
+- `NEW_TWEET` - New tweet posted
+- `NEW_TWEET_REPLY` - New reply tweet
+- `NEW_TWEET_QUOTE` - New quote tweet
+- `NEW_RETWEET` - Retweeted
+- `CA` - Tweet with CA address
+
+Content structure for tweet events:
+```json
+{
+  "id": "1234567890",
+  "text": "Tweet content...",
+  "createdAt": "2026-03-06T10:00:00Z",
+  "language": "en",
+  "retweetCount": 100,
+  "favoriteCount": 500,
+  "replyCount": 20,
+  "quoteCount": 10,
+  "viewCount": 10000,
+  "userScreenName": "elonmusk",
+  "userName": "Elon Musk",
+  "userIdStr": "44196397",
+  "userFollowers": 170000000,
+  "userVerified": true,
+  "conversationId": "1234567890",
+  "isReply": false,
+  "isQuote": false,
+  "hashtags": ["crypto", "bitcoin"],
+  "media": [
+    {
+      "type": "photo",
+      "url": "https://...",
+      "thumbUrl": "https://..."
+    }
+  ],
+  "urls": [
+    {
+      "url": "https://...",
+      "expandedUrl": "https://...",
+      "displayUrl": "example.com"
+    }
+  ],
+  "mentions": [
+    {
+      "username": "VitalikButerin",
+      "name": "Vitalik Buterin"
+    }
+  ]
+}
+```
+
+#### Follower Events
+- `NEW_FOLLOWER` - New follower
+- `NEW_UNFOLLOWER` - Unfollower event
+
+Content structure for follower events (array):
+```json
+[
+  {
+    "id": 123,
+    "twId": 44196397,
+    "twAccount": "elonmusk",
+    "twUserName": "Elon Musk",
+    "twUserLabel": "Verified",
+    "description": "User bio...",
+    "profileUrl": "https://...",
+    "bannerUrl": "https://...",
+    "followerCount": 170000000,
+    "friendCount": 500,
+    "createdAt": "2026-03-06T10:00:00Z"
+  }
+]
+```
+
+#### Profile Update Events
+- `UPDATE_NAME` - Username changed (content: new name string)
+- `UPDATE_DESCRIPTION` - Bio updated (content: new description string)
+- `UPDATE_AVATAR` - Profile picture changed (content: new avatar URL string)
+- `UPDATE_BANNER` - Banner image changed (content: new banner URL string)
+
+#### Other Events
+- `TWEET_TOPPING` - Tweet pinned
+- `DELETE` - Tweet deleted
+- `SYSTEM` - System event
+- `TRANSLATE` - Tweet translation
+- `CA_CREATE` - CA token created
 
 ---
 
