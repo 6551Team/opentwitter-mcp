@@ -265,3 +265,67 @@ async def get_twitter_kol_followers(username: str, ctx: Context) -> dict:
         })
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def get_twitter_article_by_id(article_id: str, ctx: Context) -> dict:
+    """Get Twitter article by ID.
+
+    Args:
+        article_id: Twitter article ID.
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.get_twitter_article_by_id(article_id)
+        return make_serializable({"success": True, "data": result.get("data")})
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def get_twitter_watch(ctx: Context) -> dict:
+    """Get all Twitter monitoring users for the current user.
+
+    Returns a list of Twitter accounts being monitored.
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.get_twitter_watch()
+        data = result.get("data", [])
+        return make_serializable({
+            "success": True,
+            "data": data,
+            "count": len(data) if isinstance(data, list) else 0,
+        })
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def add_twitter_watch(username: str, ctx: Context) -> dict:
+    """Add a Twitter user to monitoring list.
+
+    Args:
+        username: Twitter username to monitor (without @).
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.add_twitter_watch(username)
+        return make_serializable({"success": True, "data": result.get("data")})
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def delete_twitter_watch(watch_id: int, ctx: Context) -> dict:
+    """Delete a Twitter user from monitoring list.
+
+    Args:
+        watch_id: The monitoring record ID to delete.
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.delete_twitter_watch(watch_id)
+        return make_serializable({"success": True, "data": result.get("data")})
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
