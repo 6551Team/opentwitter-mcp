@@ -460,12 +460,6 @@ TWITTER_TOKEN=<your-token> \
 
 ---
 
-## 관련 프로젝트
-
-- [opennews-mcp](https://github.com/6551-io/opennews-mcp) - AI 평가 기능이 있는 암호화폐 뉴스 MCP 서버
-
----
-
 ## 개발
 
 ```bash
