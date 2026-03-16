@@ -201,7 +201,29 @@ curl -s -X POST "https://ai.6551.io/open/twitter_article_by_id" \
 |-----------|--------|---------|----------------------|
 | `id`      | string | required| Twitter article ID   |
 
-### 9. Get Twitter Watch List
+### 9. Get Tweet by ID
+
+Get a specific tweet by its ID, including nested reply/quote tweets.
+
+This endpoint retrieves a tweet by ID and automatically fetches any tweets it replies to or quotes, providing complete context.
+
+```bash
+curl -s -X POST "https://ai.6551.io/open/twitter_tweet_by_id" \
+  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"twId": "2030318958512164966"}'
+```
+
+| Parameter | Type   | Default | Description                    |
+|-----------|--------|---------|--------------------------------|
+| `twId`    | string | required| Twitter tweet ID (numeric)     |
+
+**Response includes**:
+- Main tweet data
+- `replyStatus`: The tweet being replied to (if applicable)
+- `quotedStatus`: The tweet being quoted (if applicable)
+
+### 10. Get Twitter Watch List
 
 Get all Twitter monitoring users for the current user.
 
@@ -212,7 +234,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_watch" \
   -d '{}'
 ```
 
-### 10. Add Twitter Watch
+### 11. Add Twitter Watch
 
 Add a Twitter user to monitoring list.
 
@@ -227,7 +249,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_watch_add" \
 |-----------|--------|---------|--------------------------------|
 | `username`| string | required| Twitter username (without @)   |
 
-### 11. Delete Twitter Watch
+### 12. Delete Twitter Watch
 
 Delete a Twitter user from monitoring list.
 

@@ -283,6 +283,27 @@ async def get_twitter_article_by_id(article_id: str, ctx: Context) -> dict:
 
 
 @mcp.tool()
+async def get_twitter_tweet_by_id(tw_id: str, ctx: Context) -> dict:
+    """Get a specific tweet by its ID, including nested reply/quote tweets.
+
+    This endpoint retrieves a tweet by ID and automatically fetches any tweets
+    it replies to or quotes, providing complete context.
+
+    Args:
+        tw_id: Twitter tweet ID (numeric string).
+
+    Returns:
+        Tweet data with nested replyStatus and quotedStatus if applicable.
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.get_twitter_tweet_by_id(tw_id)
+        return make_serializable({"success": True, "data": result.get("data")})
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
 async def get_twitter_watch(ctx: Context) -> dict:
     """Get all Twitter monitoring users for the current user.
 

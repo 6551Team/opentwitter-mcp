@@ -85,6 +85,7 @@ Once connected, just ask your AI assistant:
 | `get_twitter_deleted_tweets` | Get deleted tweets from a user |
 | `get_twitter_kol_followers` | Get KOL (Key Opinion Leader) followers |
 | `get_twitter_article_by_id` | Get Twitter article by ID |
+| `get_twitter_tweet_by_id` | Get tweet by ID with nested reply/quote tweets |
 | `get_twitter_watch` | Get all Twitter monitoring users |
 | `add_twitter_watch` | Add a Twitter user to monitoring list |
 | `delete_twitter_watch` | Delete a Twitter user from monitoring list |
