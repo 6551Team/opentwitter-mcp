@@ -85,6 +85,7 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_deleted_tweets` | 削除ツイート取得 |
 | `get_twitter_kol_followers` | KOL（キーオピニオンリーダー）フォロワー取得 |
 | `get_twitter_article_by_id` | ID で Twitter 記事取得 |
+| `get_twitter_tweet_by_id` | ID でツイート取得（ネストされた返信/引用を含む） |
 | `get_twitter_watch` | 監視中の Twitter ユーザー一覧取得 |
 | `add_twitter_watch` | Twitter ユーザーを監視リストに追加 |
 | `delete_twitter_watch` | 監視リストから Twitter ユーザーを削除 |

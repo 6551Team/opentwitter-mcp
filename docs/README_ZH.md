@@ -85,6 +85,7 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | `get_twitter_deleted_tweets` | 获取删推数据 |
 | `get_twitter_kol_followers` | 获取大V关注者 |
 | `get_twitter_article_by_id` | 通过 ID 获取 Twitter 文章 |
+| `get_twitter_tweet_by_id` | 通过 ID 获取推文（含嵌套回复/引用） |
 | `get_twitter_watch` | 获取所有监控的 Twitter 用户 |
 | `add_twitter_watch` | 添加 Twitter 用户到监控列表 |
 | `delete_twitter_watch` | 从监控列表删除 Twitter 用户 |

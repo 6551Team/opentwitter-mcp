@@ -185,6 +185,11 @@ class TwitterAPIClient:
         resp = await self._request("POST", f"{self.base_url}/open/twitter_article_by_id", json={"id": article_id})
         return resp.json()
 
+    async def get_twitter_tweet_by_id(self, tw_id: str) -> dict:
+        """POST /open/twitter_tweet_by_id — Get tweet by ID with nested reply/quote tweets"""
+        resp = await self._request("POST", f"{self.base_url}/open/twitter_tweet_by_id", json={"twId": tw_id})
+        return resp.json()
+
     async def get_twitter_watch(self) -> dict:
         """POST /open/twitter_watch — Get all Twitter monitoring users"""
         resp = await self._request("POST", f"{self.base_url}/open/twitter_watch", json={})
