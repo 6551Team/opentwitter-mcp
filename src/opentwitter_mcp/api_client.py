@@ -204,3 +204,17 @@ class TwitterAPIClient:
         """POST /open/twitter_watch_delete — Delete Twitter monitoring user"""
         resp = await self._request("POST", f"{self.base_url}/open/twitter_watch_delete", json={"id": watch_id})
         return resp.json()
+
+    async def get_twitter_quote_tweets_by_id(self, tweet_id: str, max_results: int = 20) -> dict:
+        """POST /open/twitter_quote_tweets_by_id — Get quote tweets for a tweet"""
+        body = {"id": tweet_id, "maxResults": max_results}
+        resp = await self._request("POST", f"{self.base_url}/open/twitter_quote_tweets_by_id", json=body)
+        return resp.json()
+
+    async def get_twitter_retweet_users_by_id(self, tweet_id: str, cursor: str = "") -> dict:
+        """POST /open/twitter_retweet_users_by_id — Get users who retweeted a tweet"""
+        body: dict[str, Any] = {"id": tweet_id}
+        if cursor:
+            body["cursor"] = cursor
+        resp = await self._request("POST", f"{self.base_url}/open/twitter_retweet_users_by_id", json=body)
+        return resp.json()
