@@ -223,7 +223,39 @@ curl -s -X POST "https://ai.6551.io/open/twitter_tweet_by_id" \
 - `replyStatus`: The tweet being replied to (if applicable)
 - `quotedStatus`: The tweet being quoted (if applicable)
 
-### 10. Get Twitter Watch List
+### 10. Get Quote Tweets by ID
+
+Get tweets that quote a specific tweet.
+
+```bash
+curl -s -X POST "https://ai.6551.io/open/twitter_quote_tweets_by_id" \
+  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"id": "2030318958512164966", "maxResults": 20}'
+```
+
+| Parameter    | Type    | Default | Description                    |
+|-------------|---------|---------|--------------------------------|
+| `id`        | string  | required| Twitter tweet ID (numeric)     |
+| `maxResults`| integer | 20      | Max tweets (1-100)             |
+
+### 11. Get Retweet Users by ID
+
+Get users who retweeted a specific tweet.
+
+```bash
+curl -s -X POST "https://ai.6551.io/open/twitter_retweet_users_by_id" \
+  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"id": "2030318958512164966"}'
+```
+
+| Parameter | Type   | Default | Description                              |
+|-----------|--------|---------|------------------------------------------|
+| `id`      | string | required| Twitter tweet ID (numeric)               |
+| `cursor`  | string | -       | Pagination cursor for next page          |
+
+### 12. Get Twitter Watch List
 
 Get all Twitter monitoring users for the current user.
 
@@ -234,7 +266,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_watch" \
   -d '{}'
 ```
 
-### 11. Add Twitter Watch
+### 13. Add Twitter Watch
 
 Add a Twitter user to monitoring list.
 
@@ -249,7 +281,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_watch_add" \
 |-----------|--------|---------|--------------------------------|
 | `username`| string | required| Twitter username (without @)   |
 
-### 12. Delete Twitter Watch
+### 14. Delete Twitter Watch
 
 Delete a Twitter user from monitoring list.
 

@@ -65,6 +65,8 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | "搜索 Bitcoin 相关推文" | 关键词搜索 |
 | "找 #crypto 标签的推文" | 标签搜索 |
 | "ETH 相关的热门推文，1000 赞以上" | 互动量筛选 |
+| "谁引用了这条推文" | 获取引用某条推文的推文列表 |
+| "谁转发了这条推文" | 获取转推某条推文的用户列表 |
 | "最近谁关注了 elonmusk" | 获取新关注者 |
 | "谁取关了 elonmusk" | 获取取关事件 |
 | "elonmusk 删了哪些推文" | 获取删推数据 |
@@ -86,6 +88,8 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | `get_twitter_kol_followers` | 获取大V关注者 |
 | `get_twitter_article_by_id` | 通过 ID 获取 Twitter 文章 |
 | `get_twitter_tweet_by_id` | 通过 ID 获取推文（含嵌套回复/引用） |
+| `get_twitter_quote_tweets_by_id` | 通过 ID 获取引用该推文的推文列表 |
+| `get_twitter_retweet_users_by_id` | 通过 ID 获取转推该推文的用户列表 |
 | `get_twitter_watch` | 获取所有监控的 Twitter 用户 |
 | `add_twitter_watch` | 添加 Twitter 用户到监控列表 |
 | `delete_twitter_watch` | 从监控列表删除 Twitter 用户 |
