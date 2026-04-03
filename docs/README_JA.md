@@ -92,7 +92,7 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_retweet_users_by_id` | ID で特定ツイートのリツイートユーザー取得 |
 | `get_twitter_watch` | 監視中の Twitter ユーザー一覧取得 |
 | `add_twitter_watch` | Twitter ユーザーを監視リストに追加 |
-| `delete_twitter_watch` | 監視リストから Twitter ユーザーを削除 |
+| `delete_twitter_watch` | ユーザー名で監視リストから Twitter ユーザーを削除 |
 
 ---
 

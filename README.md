@@ -92,7 +92,7 @@ Once connected, just ask your AI assistant:
 | `get_twitter_retweet_users_by_id` | Get users who retweeted a specific tweet |
 | `get_twitter_watch` | Get all Twitter monitoring users |
 | `add_twitter_watch` | Add a Twitter user to monitoring list |
-| `delete_twitter_watch` | Delete a Twitter user from monitoring list |
+| `delete_twitter_watch` | Delete a Twitter user from monitoring list by username |
 
 ---
 

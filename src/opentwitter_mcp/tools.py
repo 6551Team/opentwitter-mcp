@@ -338,15 +338,15 @@ async def add_twitter_watch(username: str, ctx: Context) -> dict:
 
 
 @mcp.tool()
-async def delete_twitter_watch(watch_id: int, ctx: Context) -> dict:
+async def delete_twitter_watch(username: str, ctx: Context) -> dict:
     """Delete a Twitter user from monitoring list.
 
     Args:
-        watch_id: The monitoring record ID to delete.
+        username: Twitter username to delete from monitoring (without @).
     """
     api = ctx.request_context.lifespan_context.api
     try:
-        result = await api.delete_twitter_watch(watch_id)
+        result = await api.delete_twitter_watch(username)
         return make_serializable({"success": True, "data": result.get("data")})
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}

@@ -283,18 +283,18 @@ curl -s -X POST "https://ai.6551.io/open/twitter_watch_add" \
 
 ### 14. Delete Twitter Watch
 
-Delete a Twitter user from monitoring list.
+Delete a Twitter user from monitoring list by username.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_watch_delete" \
   -H "Authorization: Bearer $TWITTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"id": 123}'
+  -d '{"username": "elonmusk"}'
 ```
 
-| Parameter | Type    | Default | Description                      |
-|-----------|---------|---------|----------------------------------|
-| `id`      | integer | required| Monitoring record ID to delete   |
+| Parameter  | Type   | Default | Description                              |
+|-----------|--------|---------|------------------------------------------|
+| `username`| string | required| Twitter username to delete (without @)   |
 
 ---
 

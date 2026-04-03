@@ -200,9 +200,9 @@ class TwitterAPIClient:
         resp = await self._request("POST", f"{self.base_url}/open/twitter_watch_add", json={"username": username})
         return resp.json()
 
-    async def delete_twitter_watch(self, watch_id: int) -> dict:
+    async def delete_twitter_watch(self, username: str) -> dict:
         """POST /open/twitter_watch_delete — Delete Twitter monitoring user"""
-        resp = await self._request("POST", f"{self.base_url}/open/twitter_watch_delete", json={"id": watch_id})
+        resp = await self._request("POST", f"{self.base_url}/open/twitter_watch_delete", json={"username": username})
         return resp.json()
 
     async def get_twitter_quote_tweets_by_id(self, tweet_id: str, max_results: int = 20) -> dict:
