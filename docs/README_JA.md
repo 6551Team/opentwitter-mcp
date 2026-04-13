@@ -65,7 +65,7 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | 「Bitcoin 関連のツイートを検索」 | キーワード検索 |
 | 「#crypto ハッシュタグのツイートを探して」 | ハッシュタグ検索 |
 | 「ETH について 1000 いいね以上の人気ツイート」 | エンゲージメントフィルター検索 |
-| 「最近 @elonmusk をフォローしたのは誰？」 | 新規フォロワーイベント取得 |
+| 「@elonmusk をフォロワー追跡付きで監視して」 | オプション付きで監視リストに追加 |
 | 「@elonmusk をフォロー解除したのは誰？」 | フォロー解除イベント取得 |
 | 「@elonmusk が削除したツイートは？」 | 削除ツイート取得 |
 | 「どの KOL が @elonmusk をフォローしている？」 | KOL フォロワー取得 |
@@ -86,7 +86,7 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_kol_followers` | KOL（キーオピニオンリーダー）フォロワー取得 |
 | `get_twitter_article_by_id` | ID で Twitter 記事取得 |
 | `get_twitter_watch` | 監視中の Twitter ユーザー一覧取得 |
-| `add_twitter_watch` | Twitter ユーザーを監視リストに追加 |
+| `add_twitter_watch` | Twitter ユーザーを監視リストに追加（イベントタイプ設定可能） |
 | `delete_twitter_watch` | 監視リストから Twitter ユーザーを削除 |
 
 ---

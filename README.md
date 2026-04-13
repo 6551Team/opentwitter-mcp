@@ -65,7 +65,7 @@ Once connected, just ask your AI assistant:
 | "Search Bitcoin related tweets" | Keyword search |
 | "Find tweets with #crypto hashtag" | Hashtag search |
 | "Popular tweets about ETH with 1000+ likes" | Search with engagement filters |
-| "Who followed @elonmusk recently" | Get new follower events |
+| "Monitor @elonmusk with follower tracking" | Add user to watch list with options |
 | "Who unfollowed @elonmusk" | Get unfollower events |
 | "What tweets did @elonmusk delete" | Get deleted tweets |
 | "Which KOLs follow @elonmusk" | Get KOL followers |
@@ -86,7 +86,7 @@ Once connected, just ask your AI assistant:
 | `get_twitter_kol_followers` | Get KOL (Key Opinion Leader) followers |
 | `get_twitter_article_by_id` | Get Twitter article by ID |
 | `get_twitter_watch` | Get all Twitter monitoring users |
-| `add_twitter_watch` | Add a Twitter user to monitoring list |
+| `add_twitter_watch` | Add a Twitter user to monitoring list (with event type options) |
 | `delete_twitter_watch` | Delete a Twitter user from monitoring list |
 
 ---

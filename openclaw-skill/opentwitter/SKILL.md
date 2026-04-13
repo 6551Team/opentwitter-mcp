@@ -220,12 +220,24 @@ Add a Twitter user to monitoring list.
 curl -s -X POST "https://ai.6551.io/open/twitter_watch_add" \
   -H "Authorization: Bearer $TWITTER_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"username": "elonmusk"}'
+  -d '{"username": "elonmusk", "newTweetBol": true, "newFlwBol": false}'
 ```
 
-| Parameter  | Type   | Default | Description                    |
-|-----------|--------|---------|--------------------------------|
-| `username`| string | required| Twitter username (without @)   |
+| Parameter        | Type    | Default       | Description                              |
+|-----------------|---------|---------------|------------------------------------------|
+| `username`      | string  | required      | Twitter username (without @)             |
+| `newTweetBol`   | boolean | true (server) | Monitor new tweets                       |
+| `newFlwBol`     | boolean | false (server)| Monitor new followers                    |
+| `newUnFlwBol`   | boolean | false (server)| Monitor unfollowers                      |
+| `newTweetReplyBol` | boolean | true (server) | Monitor tweet replies                 |
+| `newTweetQuoteBol` | boolean | true (server) | Monitor quote tweets                  |
+| `newRetweetBol` | boolean | true (server) | Monitor retweets                         |
+| `updateNameBol` | boolean | true (server) | Monitor username changes                 |
+| `updateDescBol` | boolean | true (server) | Monitor bio/description changes          |
+| `updateAvatarBol` | boolean | true (server) | Monitor profile picture changes        |
+| `updateBannerBol` | boolean | true (server) | Monitor banner image changes           |
+| `newCaBol`      | boolean | false (server)| Monitor CA (contract address) events     |
+| `tweetToppingBol` | boolean | false (server)| Monitor tweet pinning events           |
 
 ### 11. Delete Twitter Watch
 
