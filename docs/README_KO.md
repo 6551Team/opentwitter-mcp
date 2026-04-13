@@ -66,6 +66,9 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | "#crypto 해시태그 트윗 찾아줘" | 해시태그 검색 |
 | "ETH에 대해 1000 좋아요 이상인 인기 트윗" | 참여도 필터 검색 |
 | "@elonmusk을 팔로워 추적 포함해서 모니터링해줘" | 옵션 포함하여 모니터링 목록에 추가 |
+| "이 트윗을 인용한 사람은?" | 특정 트윗의 인용 트윗 조회 |
+| "이 트윗을 리트윗한 사람은?" | 특정 트윗의 리트윗 사용자 조회 |
+| "최근 @elonmusk을 팔로우한 사람은?" | 새 팔로워 이벤트 조회 |
 | "@elonmusk을 언팔로우한 사람은?" | 언팔로우 이벤트 조회 |
 | "@elonmusk이 삭제한 트윗은?" | 삭제된 트윗 조회 |
 | "어떤 KOL이 @elonmusk을 팔로우해?" | KOL 팔로워 조회 |
@@ -85,6 +88,9 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | `get_twitter_deleted_tweets` | 삭제된 트윗 조회 |
 | `get_twitter_kol_followers` | KOL(키 오피니언 리더) 팔로워 조회 |
 | `get_twitter_article_by_id` | ID로 Twitter 기사 조회 |
+| `get_twitter_tweet_by_id` | ID로 트윗 조회 (중첩된 답글/인용 포함) |
+| `get_twitter_quote_tweets_by_id` | ID로 특정 트윗의 인용 트윗 조회 |
+| `get_twitter_retweet_users_by_id` | ID로 특정 트윗의 리트윗 사용자 조회 |
 | `get_twitter_watch` | 모니터링 중인 Twitter 사용자 목록 조회 |
 | `add_twitter_watch` | Twitter 사용자를 모니터링 목록에 추가 (이벤트 유형 옵션 지원) |
 | `delete_twitter_watch` | 모니터링 목록에서 Twitter 사용자 삭제 |

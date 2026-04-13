@@ -66,6 +66,9 @@ Once connected, just ask your AI assistant:
 | "Find tweets with #crypto hashtag" | Hashtag search |
 | "Popular tweets about ETH with 1000+ likes" | Search with engagement filters |
 | "Monitor @elonmusk with follower tracking" | Add user to watch list with options |
+| "Who quoted this tweet" | Get quote tweets for a tweet |
+| "Who retweeted this tweet" | Get users who retweeted a tweet |
+| "Who followed @elonmusk recently" | Get new follower events |
 | "Who unfollowed @elonmusk" | Get unfollower events |
 | "What tweets did @elonmusk delete" | Get deleted tweets |
 | "Which KOLs follow @elonmusk" | Get KOL followers |
@@ -85,6 +88,9 @@ Once connected, just ask your AI assistant:
 | `get_twitter_deleted_tweets` | Get deleted tweets from a user |
 | `get_twitter_kol_followers` | Get KOL (Key Opinion Leader) followers |
 | `get_twitter_article_by_id` | Get Twitter article by ID |
+| `get_twitter_tweet_by_id` | Get tweet by ID with nested reply/quote tweets |
+| `get_twitter_quote_tweets_by_id` | Get tweets that quote a specific tweet |
+| `get_twitter_retweet_users_by_id` | Get users who retweeted a specific tweet |
 | `get_twitter_watch` | Get all Twitter monitoring users |
 | `add_twitter_watch` | Add a Twitter user to monitoring list (with event type options) |
 | `delete_twitter_watch` | Delete a Twitter user from monitoring list |

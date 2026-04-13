@@ -283,6 +283,27 @@ async def get_twitter_article_by_id(article_id: str, ctx: Context) -> dict:
 
 
 @mcp.tool()
+async def get_twitter_tweet_by_id(tw_id: str, ctx: Context) -> dict:
+    """Get a specific tweet by its ID, including nested reply/quote tweets.
+
+    This endpoint retrieves a tweet by ID and automatically fetches any tweets
+    it replies to or quotes, providing complete context.
+
+    Args:
+        tw_id: Twitter tweet ID (numeric string).
+
+    Returns:
+        Tweet data with nested replyStatus and quotedStatus if applicable.
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.get_twitter_tweet_by_id(tw_id)
+        return make_serializable({"success": True, "data": result.get("data")})
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
 async def get_twitter_watch(ctx: Context) -> dict:
     """Get all Twitter monitoring users for the current user.
 
@@ -368,5 +389,57 @@ async def delete_twitter_watch(watch_id: int, ctx: Context) -> dict:
     try:
         result = await api.delete_twitter_watch(watch_id)
         return make_serializable({"success": True, "data": result.get("data")})
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def get_twitter_quote_tweets_by_id(
+    tweet_id: str,
+    ctx: Context,
+    limit: int = 20,
+) -> dict:
+    """Get tweets that quote a specific tweet.
+
+    Args:
+        tweet_id: Twitter tweet ID (numeric string).
+        limit: Maximum tweets to return (default 20, max 100).
+    """
+    api = ctx.request_context.lifespan_context.api
+    limit = min(max(1, limit), 100)
+    try:
+        result = await api.get_twitter_quote_tweets_by_id(tweet_id, max_results=limit)
+        data = result.get("data", [])
+        return make_serializable({
+            "success": True,
+            "tweet_id": tweet_id,
+            "data": data,
+            "count": result.get("total", len(data) if isinstance(data, list) else 0),
+        })
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def get_twitter_retweet_users_by_id(
+    tweet_id: str,
+    ctx: Context,
+    cursor: str = "",
+) -> dict:
+    """Get users who retweeted a specific tweet.
+
+    Args:
+        tweet_id: Twitter tweet ID (numeric string).
+        cursor: Pagination cursor for next page (empty for first page).
+    """
+    api = ctx.request_context.lifespan_context.api
+    try:
+        result = await api.get_twitter_retweet_users_by_id(tweet_id, cursor=cursor)
+        data = result.get("data", {})
+        return make_serializable({
+            "success": True,
+            "tweet_id": tweet_id,
+            "data": data,
+        })
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}
