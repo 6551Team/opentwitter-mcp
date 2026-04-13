@@ -323,15 +323,56 @@ async def get_twitter_watch(ctx: Context) -> dict:
 
 
 @mcp.tool()
-async def add_twitter_watch(username: str, ctx: Context) -> dict:
+async def add_twitter_watch(
+    username: str,
+    ctx: Context,
+    new_tweet: bool | None = None,
+    new_follow: bool | None = None,
+    new_unfollow: bool | None = None,
+    new_tweet_reply: bool | None = None,
+    new_tweet_quote: bool | None = None,
+    new_retweet: bool | None = None,
+    update_name: bool | None = None,
+    update_desc: bool | None = None,
+    update_avatar: bool | None = None,
+    update_banner: bool | None = None,
+    new_ca: bool | None = None,
+    tweet_topping: bool | None = None,
+) -> dict:
     """Add a Twitter user to monitoring list.
 
     Args:
         username: Twitter username to monitor (without @).
+        new_tweet: Monitor new tweets (default: true on server).
+        new_follow: Monitor new followers (default: false on server).
+        new_unfollow: Monitor unfollowers (default: false on server).
+        new_tweet_reply: Monitor tweet replies (default: true on server).
+        new_tweet_quote: Monitor quote tweets (default: true on server).
+        new_retweet: Monitor retweets (default: true on server).
+        update_name: Monitor username changes (default: true on server).
+        update_desc: Monitor bio/description changes (default: true on server).
+        update_avatar: Monitor profile picture changes (default: true on server).
+        update_banner: Monitor banner image changes (default: true on server).
+        new_ca: Monitor CA (contract address) events (default: false on server).
+        tweet_topping: Monitor tweet pinning events (default: false on server).
     """
     api = ctx.request_context.lifespan_context.api
     try:
-        result = await api.add_twitter_watch(username)
+        result = await api.add_twitter_watch(
+            username,
+            new_tweet=new_tweet,
+            new_follow=new_follow,
+            new_unfollow=new_unfollow,
+            new_tweet_reply=new_tweet_reply,
+            new_tweet_quote=new_tweet_quote,
+            new_retweet=new_retweet,
+            update_name=update_name,
+            update_desc=update_desc,
+            update_avatar=update_avatar,
+            update_banner=update_banner,
+            new_ca=new_ca,
+            tweet_topping=tweet_topping,
+        )
         return make_serializable({"success": True, "data": result.get("data")})
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}

@@ -65,6 +65,7 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | 「Bitcoin 関連のツイートを検索」 | キーワード検索 |
 | 「#crypto ハッシュタグのツイートを探して」 | ハッシュタグ検索 |
 | 「ETH について 1000 いいね以上の人気ツイート」 | エンゲージメントフィルター検索 |
+| 「@elonmusk をフォロワー追跡付きで監視して」 | オプション付きで監視リストに追加 |
 | 「このツイートを引用したのは誰？」 | 特定ツイートの引用ツイート取得 |
 | 「このツイートをリツイートしたのは誰？」 | 特定ツイートのリツイートユーザー取得 |
 | 「最近 @elonmusk をフォローしたのは誰？」 | 新規フォロワーイベント取得 |
@@ -91,8 +92,8 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_quote_tweets_by_id` | ID で特定ツイートの引用ツイート取得 |
 | `get_twitter_retweet_users_by_id` | ID で特定ツイートのリツイートユーザー取得 |
 | `get_twitter_watch` | 監視中の Twitter ユーザー一覧取得 |
-| `add_twitter_watch` | Twitter ユーザーを監視リストに追加 |
-| `delete_twitter_watch` | ユーザー名で監視リストから Twitter ユーザーを削除 |
+| `add_twitter_watch` | Twitter ユーザーを監視リストに追加（イベントタイプ設定可能） |
+| `delete_twitter_watch` | 監視リストから Twitter ユーザーを削除 |
 
 ---
 

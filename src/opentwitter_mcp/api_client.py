@@ -195,9 +195,49 @@ class TwitterAPIClient:
         resp = await self._request("POST", f"{self.base_url}/open/twitter_watch", json={})
         return resp.json()
 
-    async def add_twitter_watch(self, username: str) -> dict:
-        """POST /open/twitter_watch_add — Add Twitter monitoring user"""
-        resp = await self._request("POST", f"{self.base_url}/open/twitter_watch_add", json={"username": username})
+    async def add_twitter_watch(
+        self,
+        username: str,
+        new_tweet: Optional[bool] = None,
+        new_follow: Optional[bool] = None,
+        new_unfollow: Optional[bool] = None,
+        new_tweet_reply: Optional[bool] = None,
+        new_tweet_quote: Optional[bool] = None,
+        new_retweet: Optional[bool] = None,
+        update_name: Optional[bool] = None,
+        update_desc: Optional[bool] = None,
+        update_avatar: Optional[bool] = None,
+        update_banner: Optional[bool] = None,
+        new_ca: Optional[bool] = None,
+        tweet_topping: Optional[bool] = None,
+    ) -> dict:
+        """POST /open/twitter_watch_add — 添加Twitter监控用户"""
+        body: dict[str, Any] = {"username": username}
+        if new_tweet is not None:
+            body["newTweetBol"] = new_tweet
+        if new_follow is not None:
+            body["newFlwBol"] = new_follow
+        if new_unfollow is not None:
+            body["newUnFlwBol"] = new_unfollow
+        if new_tweet_reply is not None:
+            body["newTweetReplyBol"] = new_tweet_reply
+        if new_tweet_quote is not None:
+            body["newTweetQuoteBol"] = new_tweet_quote
+        if new_retweet is not None:
+            body["newRetweetBol"] = new_retweet
+        if update_name is not None:
+            body["updateNameBol"] = update_name
+        if update_desc is not None:
+            body["updateDescBol"] = update_desc
+        if update_avatar is not None:
+            body["updateAvatarBol"] = update_avatar
+        if update_banner is not None:
+            body["updateBannerBol"] = update_banner
+        if new_ca is not None:
+            body["newCaBol"] = new_ca
+        if tweet_topping is not None:
+            body["tweetToppingBol"] = tweet_topping
+        resp = await self._request("POST", f"{self.base_url}/open/twitter_watch_add", json=body)
         return resp.json()
 
     async def delete_twitter_watch(self, username: str) -> dict:
