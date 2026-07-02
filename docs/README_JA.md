@@ -18,10 +18,10 @@
 ```bash
 claude mcp add twitter \
   -e TWITTER_TOKEN=<your-token> \
-  -- uv --directory /path/to/twitter-mcp run twitter-mcp
+  -- uv --directory /path/to/opentwitter-mcp run opentwitter-mcp
 ```
 
-> `/path/to/twitter-mcp` をローカルのプロジェクトパスに、`<your-token>` を Token に置き換えてください。
+> `/path/to/opentwitter-mcp` をローカルのプロジェクトパスに、`<your-token>` を Token に置き換えてください。
 
 ### OpenClaw
 
@@ -39,17 +39,17 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 > **以下のプロンプトをコピーして AI アシスタントに送信してください（`<プロジェクトパス>` と `<your-token>` を実際の値に置き換え）：**
 
 ```text
-twitter-mcp という MCP サーバーをレビューしてインストールしてください。プロジェクトはローカルの <プロジェクトパス> にあります。
+opentwitter-mcp という MCP サーバーをレビューしてインストールしてください。プロジェクトはローカルの <プロジェクトパス> にあります。
 
 手順：
 1. 以下のファイルのセキュリティを確認：
-   - src/twitter_mcp/api_client.py — ai.6551.io のみに接続し、他のアドレスにデータを送信していないことを確認
-   - src/twitter_mcp/config.py — トークンがローカルの config.json または環境変数からのみ読み取られ、ハードコードや漏洩がないことを確認
-   - src/twitter_mcp/tools.py — すべてのツールが API クエリのみを実行し、ファイル書き込み、コマンド実行、その他の危険な操作がないことを確認
+   - src/opentwitter_mcp/api_client.py — ai.6551.io のみに接続し、他のアドレスにデータを送信していないことを確認
+   - src/opentwitter_mcp/config.py — トークンがローカルの config.json または環境変数からのみ読み取られ、ハードコードや漏洩がないことを確認
+   - src/opentwitter_mcp/tools.py — すべてのツールが API クエリのみを実行し、ファイル書き込み、コマンド実行、その他の危険な操作がないことを確認
    - pyproject.toml — 依存関係が mcp、httpx のみで、不審なパッケージがないことを確認
 2. レビュー結論を教えてください：安全 / リスクあり / 問題あり、具体的な理由とともに
 3. 安全であれば、インストールを実行（Token は https://6551.io/mcp から取得）：
-   claude mcp add twitter -e TWITTER_TOKEN=<your-token> -- uv --directory <プロジェクトパス> run twitter-mcp
+   claude mcp add twitter -e TWITTER_TOKEN=<your-token> -- uv --directory <プロジェクトパス> run opentwitter-mcp
 ```
 
 ---
@@ -322,7 +322,7 @@ $env:TWITTER_TOKEN = "<your-token>"
 <details>
 <summary><b>その他のクライアント — 手動インストール</b>（クリックで展開）</summary>
 
-> 以下のすべての設定で `/path/to/twitter-mcp` をローカルの実際のプロジェクトパスに、`<your-token>` を [https://6551.io/mcp](https://6551.io/mcp) から取得した Token に置き換えてください。
+> 以下のすべての設定で `/path/to/opentwitter-mcp` をローカルの実際のプロジェクトパスに、`<your-token>` を [https://6551.io/mcp](https://6551.io/mcp) から取得した Token に置き換えてください。
 
 ### Claude Desktop
 
@@ -333,7 +333,7 @@ $env:TWITTER_TOKEN = "<your-token>"
   "mcpServers": {
     "twitter": {
       "command": "uv",
-      "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
+      "args": ["--directory", "/path/to/opentwitter-mcp", "run", "opentwitter-mcp"],
       "env": {
         "TWITTER_TOKEN": "<your-token>"
       }
@@ -351,7 +351,7 @@ $env:TWITTER_TOKEN = "<your-token>"
   "mcpServers": {
     "twitter": {
       "command": "uv",
-      "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
+      "args": ["--directory", "/path/to/opentwitter-mcp", "run", "opentwitter-mcp"],
       "env": {
         "TWITTER_TOKEN": "<your-token>"
       }
@@ -369,7 +369,7 @@ $env:TWITTER_TOKEN = "<your-token>"
   "mcpServers": {
     "twitter": {
       "command": "uv",
-      "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
+      "args": ["--directory", "/path/to/opentwitter-mcp", "run", "opentwitter-mcp"],
       "env": {
         "TWITTER_TOKEN": "<your-token>"
       }
@@ -387,7 +387,7 @@ VS Code サイドバー > Cline > MCP Servers > Configure、`cline_mcp_settings.
   "mcpServers": {
     "twitter": {
       "command": "uv",
-      "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
+      "args": ["--directory", "/path/to/opentwitter-mcp", "run", "opentwitter-mcp"],
       "env": {
         "TWITTER_TOKEN": "<your-token>"
       },
@@ -408,16 +408,16 @@ mcpServers:
     command: uv
     args:
       - --directory
-      - /path/to/twitter-mcp
+      - /path/to/opentwitter-mcp
       - run
-      - twitter-mcp
+      - opentwitter-mcp
     env:
       TWITTER_TOKEN: <your-token>
 ```
 
 ### Cherry Studio
 
-設定 > MCP サーバー > 追加 > タイプ stdio：Command `uv`、Args `--directory /path/to/twitter-mcp run twitter-mcp`、Env `TWITTER_TOKEN`。
+設定 > MCP サーバー > 追加 > タイプ stdio：Command `uv`、Args `--directory /path/to/opentwitter-mcp run opentwitter-mcp`、Env `TWITTER_TOKEN`。
 
 ### Zed Editor
 
@@ -429,7 +429,7 @@ mcpServers:
     "twitter": {
       "command": {
         "path": "uv",
-        "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
+        "args": ["--directory", "/path/to/opentwitter-mcp", "run", "opentwitter-mcp"],
         "env": {
           "TWITTER_TOKEN": "<your-token>"
         }
@@ -443,7 +443,7 @@ mcpServers:
 
 ```bash
 TWITTER_TOKEN=<your-token> \
-  uv --directory /path/to/twitter-mcp run twitter-mcp
+  uv --directory /path/to/opentwitter-mcp run opentwitter-mcp
 ```
 
 </details>
@@ -469,14 +469,14 @@ TWITTER_TOKEN=<your-token> \
 ## 開発
 
 ```bash
-cd /path/to/twitter-mcp
+cd /path/to/opentwitter-mcp
 uv sync
-uv run twitter-mcp
+uv run opentwitter-mcp
 ```
 
 ```bash
 # MCP Inspector
-npx @modelcontextprotocol/inspector uv --directory /path/to/twitter-mcp run twitter-mcp
+npx @modelcontextprotocol/inspector uv --directory /path/to/opentwitter-mcp run opentwitter-mcp
 ```
 
 ### プロジェクト構造
@@ -484,17 +484,18 @@ npx @modelcontextprotocol/inspector uv --directory /path/to/twitter-mcp run twit
 ```
 ├── README.md                  # English
 ├── docs/
+│   ├── README_ZH.md           # 中文
 │   ├── README_JA.md           # 日本語
 │   └── README_KO.md           # 한국어
 ├── openclaw-skill/opentwitter/    # OpenClaw Skill
 ├── pyproject.toml
 ├── config.json
-└── src/twitter_mcp/
+└── src/opentwitter_mcp/
     ├── server.py              # エントリポイント
     ├── app.py                 # FastMCP インスタンス
     ├── config.py              # 設定ローダー
     ├── api_client.py          # HTTP クライアント
-    └── tools.py               # 8 ツール
+    └── tools.py               # 15 ツール
 ```
 
 ## ライセンス
