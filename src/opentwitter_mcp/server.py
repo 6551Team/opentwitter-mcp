@@ -1,14 +1,5 @@
 """Entry point for the Twitter MCP server."""
 
-import sys
-
-# psycopg3 async requires SelectorEventLoop on Windows (ProactorEventLoop is unsupported).
-if sys.platform == "win32":
-    import asyncio, selectors  # noqa: E401
-    asyncio.set_event_loop_policy(
-        asyncio.WindowsSelectorEventLoopPolicy()
-    )
-
 from opentwitter_mcp.app import mcp
 
 # Importing the tools module triggers registration of all @mcp.tool() decorators.
