@@ -11,13 +11,13 @@
 
 ## 快速安装
 
-> **首先前往 [https://6551.io/mcp](https://6551.io/mcp) 申请你的 API Token。**
+> **首先前往 [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) 申请你的 API Token。**
 
 ### Claude Code
 
 ```bash
 claude mcp add twitter \
-  -e TWITTER_TOKEN=<your-token> \
+  -e OPENNEWS_TOKEN=<your-token> \
   -- uv --directory /path/to/twitter-mcp run twitter-mcp
 ```
 
@@ -26,7 +26,7 @@ claude mcp add twitter \
 ### OpenClaw
 
 ```bash
-export TWITTER_TOKEN="<your-token>"
+export OPENNEWS_TOKEN="<your-token>"
 cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 ```
 
@@ -48,8 +48,8 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
    - src/twitter_mcp/tools.py — 确认所有工具只做 API 查询，没有文件写入、命令执行或其他危险操作
    - pyproject.toml — 确认依赖项只有 mcp、httpx，没有可疑包
 2. 告诉我审查结论：安全/有风险/有问题，以及具体理由
-3. 如果安全，帮我执行安装（Token 从 https://6551.io/mcp 申请）：
-   claude mcp add twitter -e TWITTER_TOKEN=<your-token> -- uv --directory <项目路径> run twitter-mcp
+3. 如果安全，帮我执行安装（Token 从 http://app.newsliquid.com/mcp 申请）：
+   claude mcp add twitter -e OPENNEWS_TOKEN=<your-token> -- uv --directory <项目路径> run twitter-mcp
 ```
 
 ---
@@ -101,21 +101,21 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 
 ### 获取 API Token
 
-前往 [https://6551.io/mcp](https://6551.io/mcp) 申请你的 API Token。
+前往 [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) 申请你的 API Token。
 
 设置环境变量：
 
 ```bash
 # macOS / Linux
-export TWITTER_TOKEN="<your-token>"
+export OPENNEWS_TOKEN="<your-token>"
 
 # Windows PowerShell
-$env:TWITTER_TOKEN = "<your-token>"
+$env:OPENNEWS_TOKEN = "<your-token>"
 ```
 
 | 变量 | 必填 | 说明 |
 |------|------|------|
-| `TWITTER_TOKEN` | **是** | 6551 API Bearer Token（从 https://6551.io/mcp 申请） |
+| `OPENNEWS_TOKEN` | **是** | 6551 API Bearer Token（从 http://app.newsliquid.com/mcp 申请） |
 | `TWITTER_API_BASE` | 否 | 覆盖 REST API 地址 |
 | `TWITTER_MAX_ROWS` | 否 | 单次最大结果数（默认 100） |
 
@@ -322,7 +322,7 @@ $env:TWITTER_TOKEN = "<your-token>"
 <details>
 <summary><b>其他客户端手动安装</b>（点击展开）</summary>
 
-> 以下所有配置中 `/path/to/twitter-mcp` 需替换为你本地的实际项目路径，`<your-token>` 替换为你从 [https://6551.io/mcp](https://6551.io/mcp) 申请的 Token。
+> 以下所有配置中 `/path/to/twitter-mcp` 需替换为你本地的实际项目路径，`<your-token>` 替换为你从 [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) 申请的 Token。
 
 ### Claude Desktop
 
@@ -335,7 +335,7 @@ $env:TWITTER_TOKEN = "<your-token>"
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -353,7 +353,7 @@ $env:TWITTER_TOKEN = "<your-token>"
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -371,7 +371,7 @@ $env:TWITTER_TOKEN = "<your-token>"
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -389,7 +389,7 @@ VS Code 侧栏 > Cline > MCP Servers > Configure，编辑 `cline_mcp_settings.js
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       },
       "disabled": false,
       "autoApprove": []
@@ -412,12 +412,12 @@ mcpServers:
       - run
       - twitter-mcp
     env:
-      TWITTER_TOKEN: <your-token>
+      OPENNEWS_TOKEN: <your-token>
 ```
 
 ### Cherry Studio
 
-设置 > MCP 服务器 > 添加 > 类型 stdio：Command `uv`，Args `--directory /path/to/twitter-mcp run twitter-mcp`，Env `TWITTER_TOKEN`。
+设置 > MCP 服务器 > 添加 > 类型 stdio：Command `uv`，Args `--directory /path/to/twitter-mcp run twitter-mcp`，Env `OPENNEWS_TOKEN`。
 
 ### Zed Editor
 
@@ -431,7 +431,7 @@ mcpServers:
         "path": "uv",
         "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
         "env": {
-          "TWITTER_TOKEN": "<your-token>"
+          "OPENNEWS_TOKEN": "<your-token>"
         }
       }
     }
@@ -442,7 +442,7 @@ mcpServers:
 ### 任意 stdio MCP 客户端
 
 ```bash
-TWITTER_TOKEN=<your-token> \
+OPENNEWS_TOKEN=<your-token> \
   uv --directory /path/to/twitter-mcp run twitter-mcp
 ```
 

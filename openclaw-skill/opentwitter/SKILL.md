@@ -7,10 +7,10 @@ metadata:
   openclaw:
     requires:
       env:
-        - TWITTER_TOKEN
+        - OPENNEWS_TOKEN
       bins:
         - curl
-    primaryEnv: TWITTER_TOKEN
+    primaryEnv: OPENNEWS_TOKEN
     emoji: "\U0001F426"
     install:
       - id: curl
@@ -26,9 +26,9 @@ metadata:
 
 # Twitter/X Data Skill
 
-Query Twitter/X data from the 6551 platform REST API. All endpoints require a Bearer token via `$TWITTER_TOKEN`.
+Query Twitter/X data from the 6551 platform REST API. All endpoints require a Bearer token via `$OPENNEWS_TOKEN`.
 
-**Get your token**: https://6551.io/mcp
+**Get your token**: http://app.newsliquid.com/mcp
 
 **Base URL**: `https://ai.6551.io`
 
@@ -36,7 +36,7 @@ Query Twitter/X data from the 6551 platform REST API. All endpoints require a Be
 
 All requests require the header:
 ```
-Authorization: Bearer $TWITTER_TOKEN
+Authorization: Bearer $OPENNEWS_TOKEN
 ```
 
 ---
@@ -49,7 +49,7 @@ Get user profile by username.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_user_info" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk"}'
 ```
@@ -60,7 +60,7 @@ Get user profile by numeric ID.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_user_by_id" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"userId": "44196397"}'
 ```
@@ -71,7 +71,7 @@ Get recent tweets from a user.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_user_tweets" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk", "maxResults": 20, "product": "Latest"}'
 ```
@@ -90,7 +90,7 @@ Search tweets with various filters.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_search" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"keywords": "bitcoin", "maxResults": 20, "product": "Top"}'
 ```
@@ -98,7 +98,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_search" \
 **Search from specific user:**
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_search" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"fromUser": "VitalikButerin", "maxResults": 20}'
 ```
@@ -106,7 +106,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_search" \
 **Search by hashtag:**
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_search" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"hashtag": "crypto", "minLikes": 100, "maxResults": 20}'
 ```
@@ -138,13 +138,13 @@ Get new followers or unfollowers for a user.
 ```bash
 # Get new followers
 curl -s -X POST "https://ai.6551.io/open/twitter_follower_events" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk", "isFollow": true, "maxResults": 20}'
 
 # Get unfollowers
 curl -s -X POST "https://ai.6551.io/open/twitter_follower_events" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk", "isFollow": false, "maxResults": 20}'
 ```
@@ -161,7 +161,7 @@ Get deleted tweets from a user.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_deleted_tweets" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk", "maxResults": 20}'
 ```
@@ -177,7 +177,7 @@ Get which KOLs (Key Opinion Leaders) are following a user.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_kol_followers" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk"}'
 ```
@@ -192,7 +192,7 @@ Get Twitter article by ID.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_article_by_id" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"id": "article_id"}'
 ```
@@ -209,7 +209,7 @@ This endpoint retrieves a tweet by ID and automatically fetches any tweets it re
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_tweet_by_id" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"twId": "2030318958512164966"}'
 ```
@@ -229,7 +229,7 @@ Get tweets that quote a specific tweet.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_quote_tweets_by_id" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"id": "2030318958512164966", "maxResults": 20}'
 ```
@@ -245,7 +245,7 @@ Get users who retweeted a specific tweet.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_retweet_users_by_id" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"id": "2030318958512164966"}'
 ```
@@ -261,7 +261,7 @@ Get all Twitter monitoring users for the current user.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_watch" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{}'
 ```
@@ -272,7 +272,7 @@ Add a Twitter user to monitoring list.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_watch_add" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk", "newTweetBol": true, "newFlwBol": false}'
 ```
@@ -299,7 +299,7 @@ Delete a Twitter user from monitoring list by username.
 
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_watch_delete" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "elonmusk"}'
 ```
@@ -503,7 +503,7 @@ Content structure for follower events (array):
 ### Crypto Twitter KOL Tweets
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_user_tweets" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"username": "VitalikButerin", "maxResults": 10}'
 ```
@@ -511,13 +511,13 @@ curl -s -X POST "https://ai.6551.io/open/twitter_user_tweets" \
 ### Trending Crypto Tweets
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_search" \
-  -H "Authorization: Bearer $TWITTER_TOKEN" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"keywords": "bitcoin", "minLikes": 1000, "product": "Top", "maxResults": 20}'
 ```
 
 ## Notes
 
-- Get your API token at https://6551.io/mcp
+- Get your API token at http://app.newsliquid.com/mcp
 - Rate limits apply; max 100 results per request
 - Twitter usernames should not include the @ symbol

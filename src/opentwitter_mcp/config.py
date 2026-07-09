@@ -21,13 +21,13 @@ if _CONFIG_PATH.exists():
 
 # ---------- API (env vars take precedence) ----------
 API_BASE_URL = os.environ.get("TWITTER_API_BASE") or _cfg.get("api_base_url", "https://ai.6551.io")
-API_TOKEN    = os.environ.get("TWITTER_TOKEN") or os.environ.get("OPENNEWS_TOKEN") or _cfg.get("api_token", "")
+API_TOKEN    = os.environ.get("OPENNEWS_TOKEN") or _cfg.get("api_token", "")
 
 # 检查 token 是否配置
 if not API_TOKEN:
     raise ValueError(
-        "TWITTER_TOKEN not configured. Get your API token at https://6551.io/mcp, "
-        "then set the TWITTER_TOKEN environment variable or configure api_token in config.json."
+        "OPENNEWS_TOKEN not configured. Get your API token at http://app.newsliquid.com/mcp, "
+        "then set the OPENNEWS_TOKEN environment variable or configure api_token in config.json."
     )
 
 # ---------- Safety ----------

@@ -11,13 +11,13 @@
 
 ## Quick Install
 
-> **First, go to [https://6551.io/mcp](https://6551.io/mcp) to get your API Token.**
+> **First, go to [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) to get your API Token.**
 
 ### Claude Code
 
 ```bash
 claude mcp add twitter \
-  -e TWITTER_TOKEN=<your-token> \
+  -e OPENNEWS_TOKEN=<your-token> \
   -- uv --directory /path/to/twitter-mcp run twitter-mcp
 ```
 
@@ -26,7 +26,7 @@ claude mcp add twitter \
 ### OpenClaw
 
 ```bash
-export TWITTER_TOKEN="<your-token>"
+export OPENNEWS_TOKEN="<your-token>"
 cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 ```
 
@@ -48,8 +48,8 @@ Steps:
    - src/twitter_mcp/tools.py — Confirm all tools only perform API queries, no file writes, command execution, or dangerous operations
    - pyproject.toml — Confirm dependencies are only mcp, httpx, no suspicious packages
 2. Tell me your conclusion: safe / risky / problematic, with specific reasons
-3. If safe, run the install (get Token from https://6551.io/mcp):
-   claude mcp add twitter -e TWITTER_TOKEN=<your-token> -- uv --directory <project-path> run twitter-mcp
+3. If safe, run the install (get Token from http://app.newsliquid.com/mcp):
+   claude mcp add twitter -e OPENNEWS_TOKEN=<your-token> -- uv --directory <project-path> run twitter-mcp
 ```
 
 ---
@@ -101,21 +101,21 @@ Once connected, just ask your AI assistant:
 
 ### Get API Token
 
-Go to [https://6551.io/mcp](https://6551.io/mcp) to get your API Token.
+Go to [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) to get your API Token.
 
 Set the environment variable:
 
 ```bash
 # macOS / Linux
-export TWITTER_TOKEN="<your-token>"
+export OPENNEWS_TOKEN="<your-token>"
 
 # Windows PowerShell
-$env:TWITTER_TOKEN = "<your-token>"
+$env:OPENNEWS_TOKEN = "<your-token>"
 ```
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `TWITTER_TOKEN` | **Yes** | 6551 API Bearer Token (get from https://6551.io/mcp) |
+| `OPENNEWS_TOKEN` | **Yes** | 6551 API Bearer Token (get from http://app.newsliquid.com/mcp) |
 | `TWITTER_API_BASE` | No | Override REST API URL |
 | `TWITTER_MAX_ROWS` | No | Max results per query (default: 100) |
 
@@ -322,7 +322,7 @@ Content structure for follower events (array):
 <details>
 <summary><b>Other Clients — Manual Install</b> (click to expand)</summary>
 
-> In all configs below, replace `/path/to/twitter-mcp` with your actual local project path, and `<your-token>` with your Token from [https://6551.io/mcp](https://6551.io/mcp).
+> In all configs below, replace `/path/to/twitter-mcp` with your actual local project path, and `<your-token>` with your Token from [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp).
 
 ### Claude Desktop
 
@@ -335,7 +335,7 @@ Edit config (macOS: `~/Library/Application Support/Claude/claude_desktop_config.
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -353,7 +353,7 @@ Edit config (macOS: `~/Library/Application Support/Claude/claude_desktop_config.
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -371,7 +371,7 @@ Edit config (macOS: `~/Library/Application Support/Claude/claude_desktop_config.
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -389,7 +389,7 @@ VS Code sidebar > Cline > MCP Servers > Configure, edit `cline_mcp_settings.json
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       },
       "disabled": false,
       "autoApprove": []
@@ -412,12 +412,12 @@ mcpServers:
       - run
       - twitter-mcp
     env:
-      TWITTER_TOKEN: <your-token>
+      OPENNEWS_TOKEN: <your-token>
 ```
 
 ### Cherry Studio
 
-Settings > MCP Servers > Add > Type stdio: Command `uv`, Args `--directory /path/to/twitter-mcp run twitter-mcp`, Env `TWITTER_TOKEN`.
+Settings > MCP Servers > Add > Type stdio: Command `uv`, Args `--directory /path/to/twitter-mcp run twitter-mcp`, Env `OPENNEWS_TOKEN`.
 
 ### Zed Editor
 
@@ -431,7 +431,7 @@ Settings > MCP Servers > Add > Type stdio: Command `uv`, Args `--directory /path
         "path": "uv",
         "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
         "env": {
-          "TWITTER_TOKEN": "<your-token>"
+          "OPENNEWS_TOKEN": "<your-token>"
         }
       }
     }
@@ -442,7 +442,7 @@ Settings > MCP Servers > Add > Type stdio: Command `uv`, Args `--directory /path
 ### Any stdio MCP client
 
 ```bash
-TWITTER_TOKEN=<your-token> \
+OPENNEWS_TOKEN=<your-token> \
   uv --directory /path/to/twitter-mcp run twitter-mcp
 ```
 

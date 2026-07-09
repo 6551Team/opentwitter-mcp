@@ -11,13 +11,13 @@
 
 ## クイックインストール
 
-> **まず [https://6551.io/mcp](https://6551.io/mcp) で API Token を取得してください。**
+> **まず [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) で API Token を取得してください。**
 
 ### Claude Code
 
 ```bash
 claude mcp add twitter \
-  -e TWITTER_TOKEN=<your-token> \
+  -e OPENNEWS_TOKEN=<your-token> \
   -- uv --directory /path/to/twitter-mcp run twitter-mcp
 ```
 
@@ -26,7 +26,7 @@ claude mcp add twitter \
 ### OpenClaw
 
 ```bash
-export TWITTER_TOKEN="<your-token>"
+export OPENNEWS_TOKEN="<your-token>"
 cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 ```
 
@@ -48,8 +48,8 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
    - src/twitter_mcp/tools.py — すべてのツールが API クエリのみを実行し、ファイル書き込み、コマンド実行、その他の危険な操作がないことを確認
    - pyproject.toml — 依存関係が mcp、httpx のみで、不審なパッケージがないことを確認
 2. レビュー結論を教えてください：安全 / リスクあり / 問題あり、具体的な理由とともに
-3. 安全であれば、インストールを実行（Token は https://6551.io/mcp から取得）：
-   claude mcp add twitter -e TWITTER_TOKEN=<your-token> -- uv --directory <プロジェクトパス> run twitter-mcp
+3. 安全であれば、インストールを実行（Token は http://app.newsliquid.com/mcp から取得）：
+   claude mcp add twitter -e OPENNEWS_TOKEN=<your-token> -- uv --directory <プロジェクトパス> run twitter-mcp
 ```
 
 ---
@@ -101,21 +101,21 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 
 ### API Token を取得
 
-[https://6551.io/mcp](https://6551.io/mcp) で API Token を取得してください。
+[http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) で API Token を取得してください。
 
 環境変数を設定：
 
 ```bash
 # macOS / Linux
-export TWITTER_TOKEN="<your-token>"
+export OPENNEWS_TOKEN="<your-token>"
 
 # Windows PowerShell
-$env:TWITTER_TOKEN = "<your-token>"
+$env:OPENNEWS_TOKEN = "<your-token>"
 ```
 
 | 変数 | 必須 | 説明 |
 |------|------|------|
-| `TWITTER_TOKEN` | **はい** | 6551 API Bearer トークン（https://6551.io/mcp から取得） |
+| `OPENNEWS_TOKEN` | **はい** | 6551 API Bearer トークン（http://app.newsliquid.com/mcp から取得） |
 | `TWITTER_API_BASE` | いいえ | REST API URL のオーバーライド |
 | `TWITTER_MAX_ROWS` | いいえ | クエリあたりの最大結果数（デフォルト: 100） |
 
@@ -322,7 +322,7 @@ $env:TWITTER_TOKEN = "<your-token>"
 <details>
 <summary><b>その他のクライアント — 手動インストール</b>（クリックで展開）</summary>
 
-> 以下のすべての設定で `/path/to/twitter-mcp` をローカルの実際のプロジェクトパスに、`<your-token>` を [https://6551.io/mcp](https://6551.io/mcp) から取得した Token に置き換えてください。
+> 以下のすべての設定で `/path/to/twitter-mcp` をローカルの実際のプロジェクトパスに、`<your-token>` を [http://app.newsliquid.com/mcp](http://app.newsliquid.com/mcp) から取得した Token に置き換えてください。
 
 ### Claude Desktop
 
@@ -335,7 +335,7 @@ $env:TWITTER_TOKEN = "<your-token>"
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -353,7 +353,7 @@ $env:TWITTER_TOKEN = "<your-token>"
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -371,7 +371,7 @@ $env:TWITTER_TOKEN = "<your-token>"
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       }
     }
   }
@@ -389,7 +389,7 @@ VS Code サイドバー > Cline > MCP Servers > Configure、`cline_mcp_settings.
       "command": "uv",
       "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
       "env": {
-        "TWITTER_TOKEN": "<your-token>"
+        "OPENNEWS_TOKEN": "<your-token>"
       },
       "disabled": false,
       "autoApprove": []
@@ -412,12 +412,12 @@ mcpServers:
       - run
       - twitter-mcp
     env:
-      TWITTER_TOKEN: <your-token>
+      OPENNEWS_TOKEN: <your-token>
 ```
 
 ### Cherry Studio
 
-設定 > MCP サーバー > 追加 > タイプ stdio：Command `uv`、Args `--directory /path/to/twitter-mcp run twitter-mcp`、Env `TWITTER_TOKEN`。
+設定 > MCP サーバー > 追加 > タイプ stdio：Command `uv`、Args `--directory /path/to/twitter-mcp run twitter-mcp`、Env `OPENNEWS_TOKEN`。
 
 ### Zed Editor
 
@@ -431,7 +431,7 @@ mcpServers:
         "path": "uv",
         "args": ["--directory", "/path/to/twitter-mcp", "run", "twitter-mcp"],
         "env": {
-          "TWITTER_TOKEN": "<your-token>"
+          "OPENNEWS_TOKEN": "<your-token>"
         }
       }
     }
@@ -442,7 +442,7 @@ mcpServers:
 ### 任意の stdio MCP クライアント
 
 ```bash
-TWITTER_TOKEN=<your-token> \
+OPENNEWS_TOKEN=<your-token> \
   uv --directory /path/to/twitter-mcp run twitter-mcp
 ```
 
