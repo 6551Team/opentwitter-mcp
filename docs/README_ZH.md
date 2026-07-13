@@ -137,6 +137,10 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 
 订阅你监控的 Twitter 账号的实时事件。
 
+### 心跳
+
+为了保持连接活跃，客户端可以发送 `ping`，服务端会响应 `pong`。
+
 ### 订阅 Twitter 事件
 
 ```json

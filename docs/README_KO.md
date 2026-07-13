@@ -137,6 +137,10 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 
 모니터링 중인 Twitter 계정의 실시간 이벤트를 구독합니다.
 
+### 하트비트
+
+연결을 유지하기 위해 클라이언트는 `ping`을 보낼 수 있으며, 서버는 `pong`으로 응답합니다.
+
 ### Twitter 이벤트 구독
 
 ```json

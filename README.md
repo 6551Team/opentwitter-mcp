@@ -137,6 +137,10 @@ Also supports `config.json` in the project root (env vars take precedence):
 
 Subscribe to real-time events from your monitored Twitter accounts.
 
+### Heartbeat
+
+To keep the connection alive, the client can send `ping`, and the server responds with `pong`.
+
 ### Subscribe to Twitter Events
 
 ```json
