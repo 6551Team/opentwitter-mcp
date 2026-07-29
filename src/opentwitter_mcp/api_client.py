@@ -170,7 +170,19 @@ class TwitterAPIClient:
             remaining = request_deadline - time.monotonic()
             if remaining <= 0:
                 break
-            delay = min(self._hermes_retry_delay * (2**attempt), remaining)
+            delay = self._hermes_retry_delay * (2**attempt)
+            if (
+                isinstance(last_error, httpx.HTTPStatusError)
+                and last_error.response.status_code == 429
+            ):
+                retry_after = last_error.response.headers.get("Retry-After")
+                if retry_after:
+                    try:
+                        delay = max(delay, float(retry_after))
+                    except ValueError:
+                        pass
+            if delay >= remaining:
+                break
             if delay > 0:
                 await asyncio.sleep(delay)
 

@@ -1,6 +1,7 @@
 import json
 import os
 import unittest
+from unittest.mock import AsyncMock, patch
 
 import httpx
 
@@ -177,6 +178,39 @@ class HermesBackendTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(result["data"], [{"id": "1"}])
         self.assertEqual(len(requests), 3)
+
+    async def test_xquik_search_respects_retry_after_header(self):
+        requests = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            requests.append(request)
+            if len(requests) == 1:
+                return httpx.Response(
+                    429,
+                    headers={"Retry-After": "2"},
+                    json={"error": "rate_limit_exceeded"},
+                )
+            return httpx.Response(200, json={"tweets": [{"id": "1"}]})
+
+        client = TwitterAPIClient(
+            token="",
+            hermes_key="xq_test",
+            x_read_backend="xquik",
+            transport=httpx.MockTransport(handler),
+        )
+
+        with patch(
+            "opentwitter_mcp.api_client.asyncio.sleep",
+            new_callable=AsyncMock,
+        ) as sleep:
+            result = await client.search_twitter(
+                keywords="agents",
+                max_results=1,
+            )
+
+        self.assertEqual(result["data"], [{"id": "1"}])
+        self.assertEqual(len(requests), 2)
+        sleep.assert_awaited_once_with(2.0)
 
     async def test_xquik_search_retries_connection_errors(self):
         requests = []
