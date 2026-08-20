@@ -4,7 +4,8 @@ import sys
 
 # psycopg3 async requires SelectorEventLoop on Windows (ProactorEventLoop is unsupported).
 if sys.platform == "win32":
-    import asyncio, selectors  # noqa: E401
+    import asyncio
+
     asyncio.set_event_loop_policy(
         asyncio.WindowsSelectorEventLoopPolicy()
     )

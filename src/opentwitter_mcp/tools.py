@@ -6,7 +6,23 @@ Uses POST /open/twitter_* endpoints as the data source.
 from mcp.server.fastmcp import Context
 
 from opentwitter_mcp.app import mcp
-from opentwitter_mcp.config import make_serializable
+from opentwitter_mcp.config import clamp_limit, make_serializable
+
+
+def _tweet_list_response(result: dict, **extra: object) -> dict:
+    """Build a consistent list response with optional pagination state."""
+    data = result.get("data", [])
+    response = {
+        "success": True,
+        **extra,
+        "data": data,
+        "count": len(data) if isinstance(data, list) else 0,
+    }
+    meta = result.get("meta")
+    if isinstance(meta, dict):
+        response["has_more"] = bool(meta.get("has_more", False))
+        response["next_cursor"] = meta.get("next_cursor", "")
+    return make_serializable(response)
 
 
 @mcp.tool()
@@ -46,31 +62,28 @@ async def get_twitter_user_tweets(
     limit: int = 20,
     include_replies: bool = False,
     include_retweets: bool = False,
+    cursor: str = "",
 ) -> dict:
     """Get recent tweets from a specific Twitter/X user.
 
     Args:
         username: Twitter username (without @).
-        limit: Maximum tweets to return (default 20, max 100).
+        limit: Maximum tweets to return (default 20, configured maximum 100).
         include_replies: Include reply tweets (default False).
         include_retweets: Include retweets (default False).
+        cursor: Optional Xquik pagination cursor from a previous response.
     """
     api = ctx.request_context.lifespan_context.api
-    limit = min(max(1, limit), 100)
+    limit = clamp_limit(limit)
     try:
         result = await api.get_twitter_user_tweets(
             username=username,
             max_results=limit,
             include_replies=include_replies,
             include_retweets=include_retweets,
+            cursor=cursor,
         )
-        data = result.get("data", [])
-        return make_serializable({
-            "success": True,
-            "username": username,
-            "data": data,
-            "count": len(data) if isinstance(data, list) else 0,
-        })
+        return _tweet_list_response(result, username=username)
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}
 
@@ -83,6 +96,7 @@ async def search_twitter(
     hashtag: str = "",
     min_likes: int = 0,
     limit: int = 20,
+    cursor: str = "",
 ) -> dict:
     """Search Twitter/X for tweets matching criteria.
 
@@ -91,10 +105,11 @@ async def search_twitter(
         from_user: Filter tweets from specific user (without @).
         hashtag: Filter by hashtag (without #).
         min_likes: Minimum likes threshold.
-        limit: Maximum tweets to return (default 20, max 100).
+        limit: Maximum tweets to return (default 20, configured maximum 100).
+        cursor: Optional Xquik pagination cursor from a previous response.
     """
     api = ctx.request_context.lifespan_context.api
-    limit = min(max(1, limit), 100)
+    limit = clamp_limit(limit)
     try:
         result = await api.search_twitter(
             keywords=keywords or None,
@@ -102,13 +117,9 @@ async def search_twitter(
             hashtag=hashtag or None,
             min_likes=min_likes,
             max_results=limit,
+            cursor=cursor,
         )
-        data = result.get("data", [])
-        return make_serializable({
-            "success": True,
-            "data": data,
-            "count": len(data) if isinstance(data, list) else 0,
-        })
+        return _tweet_list_response(result)
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}
 
@@ -131,6 +142,7 @@ async def search_twitter_advanced(
     lang: str = "",
     product: str = "Top",
     limit: int = 20,
+    cursor: str = "",
 ) -> dict:
     """Advanced Twitter/X search with multiple filters.
 
@@ -149,10 +161,11 @@ async def search_twitter_advanced(
         until_date: End date (YYYY-MM-DD).
         lang: Language code (e.g. "en", "zh").
         product: Sort by "Top" or "Latest" (default "Top").
-        limit: Maximum tweets to return (default 20, max 100).
+        limit: Maximum tweets to return (default 20, configured maximum 100).
+        cursor: Optional Xquik pagination cursor from a previous response.
     """
     api = ctx.request_context.lifespan_context.api
-    limit = min(max(1, limit), 100)
+    limit = clamp_limit(limit)
     try:
         result = await api.search_twitter(
             keywords=keywords or None,
@@ -170,13 +183,9 @@ async def search_twitter_advanced(
             lang=lang or None,
             product=product,
             max_results=limit,
+            cursor=cursor,
         )
-        data = result.get("data", [])
-        return make_serializable({
-            "success": True,
-            "data": data,
-            "count": len(data) if isinstance(data, list) else 0,
-        })
+        return _tweet_list_response(result)
     except Exception as e:
         return {"success": False, "error": str(e) or repr(e)}
 
@@ -193,10 +202,10 @@ async def get_twitter_follower_events(
     Args:
         username: Twitter username (without @).
         is_follow: True for new followers, False for unfollowers.
-        limit: Maximum events to return (default 20, max 100).
+        limit: Maximum events to return (default 20, configured maximum 100).
     """
     api = ctx.request_context.lifespan_context.api
-    limit = min(max(1, limit), 100)
+    limit = clamp_limit(limit)
     try:
         result = await api.get_twitter_follower_events(
             username=username,
@@ -225,10 +234,10 @@ async def get_twitter_deleted_tweets(
 
     Args:
         username: Twitter username (without @).
-        limit: Maximum tweets to return (default 20, max 100).
+        limit: Maximum tweets to return (default 20, configured maximum 100).
     """
     api = ctx.request_context.lifespan_context.api
-    limit = min(max(1, limit), 100)
+    limit = clamp_limit(limit)
     try:
         result = await api.get_twitter_deleted_tweets(
             username=username,
@@ -403,10 +412,10 @@ async def get_twitter_quote_tweets_by_id(
 
     Args:
         tweet_id: Twitter tweet ID (numeric string).
-        limit: Maximum tweets to return (default 20, max 100).
+        limit: Maximum tweets to return (default 20, configured maximum 100).
     """
     api = ctx.request_context.lifespan_context.api
-    limit = min(max(1, limit), 100)
+    limit = clamp_limit(limit)
     try:
         result = await api.get_twitter_quote_tweets_by_id(tweet_id, max_results=limit)
         data = result.get("data", [])

@@ -23,6 +23,15 @@ claude mcp add twitter \
 
 > Replace `/path/to/twitter-mcp` with your local project path, and `<your-token>` with your Token.
 
+To use the optional read-only Hermes Tweet / Xquik backend for tweet search instead:
+
+```bash
+claude mcp add twitter \
+  -e X_READ_BACKEND=hermes \
+  -e HERMES_TWEET_API_KEY=<your-hermes-or-xquik-key> \
+  -- uv --directory /path/to/twitter-mcp run twitter-mcp
+```
+
 ### OpenClaw
 
 ```bash
@@ -43,9 +52,9 @@ Please review and install the twitter-mcp MCP server for me. The project is at <
 
 Steps:
 1. Review these files for security:
-   - src/twitter_mcp/api_client.py — Confirm it only connects to ai.6551.io, no data sent elsewhere
-   - src/twitter_mcp/config.py — Confirm token is only read from local config.json or env vars, no hardcoded secrets or leaks
-   - src/twitter_mcp/tools.py — Confirm all tools only perform API queries, no file writes, command execution, or dangerous operations
+   - src/opentwitter_mcp/api_client.py — Confirm it connects only to the configured 6551 API and, when explicitly enabled, the configured Xquik endpoint
+   - src/opentwitter_mcp/config.py — Confirm tokens are only read from local config.json or env vars, with no hardcoded secrets or leaks
+   - src/opentwitter_mcp/tools.py — Confirm all tools only perform API queries, with no file writes, command execution, or dangerous operations
    - pyproject.toml — Confirm dependencies are only mcp, httpx, no suspicious packages
 2. Tell me your conclusion: safe / risky / problematic, with specific reasons
 3. If safe, run the install (get Token from http://app.newsliquid.com/mcp):
@@ -115,9 +124,15 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `OPENNEWS_TOKEN` | **Yes** | 6551 API Bearer Token (get from http://app.newsliquid.com/mcp) |
+| `OPENNEWS_TOKEN` | Yes, unless using the Hermes Tweet backend | 6551 API Bearer Token (get from http://app.newsliquid.com/mcp) |
+| `TWITTER_TOKEN` | No | Legacy alternative to `OPENNEWS_TOKEN` |
 | `TWITTER_API_BASE` | No | Override REST API URL |
-| `TWITTER_MAX_ROWS` | No | Max results per query (default: 100) |
+| `TWITTER_MAX_ROWS` | No | Positive maximum results per query (default: 100) |
+| `X_READ_BACKEND` | No | Set to `hermes` to use Hermes Tweet / Xquik for read-only tweet search |
+| `HERMES_TWEET_API_KEY` | No | Hermes Tweet / Xquik API key for the optional read-only search backend |
+| `XQUIK_API_KEY` | No | Alternative env name for `HERMES_TWEET_API_KEY` |
+| `HERMES_TWEET_BASE_URL` | No | Override the Hermes Tweet / Xquik base URL (default: `https://xquik.com`) |
+| `XQUIK_BASE_URL` | No | Alternative env name for `HERMES_TWEET_BASE_URL` |
 
 Also supports `config.json` in the project root (env vars take precedence):
 
@@ -128,6 +143,15 @@ Also supports `config.json` in the project root (env vars take precedence):
   "max_rows": 100
 }
 ```
+
+When `OPENNEWS_TOKEN` or its legacy `TWITTER_TOKEN` alias is present, the 6551 API
+remains the default. The Hermes Tweet backend is used only when
+`X_READ_BACKEND=hermes` is set, or when no 6551 token is configured and
+`HERMES_TWEET_API_KEY` or `XQUIK_API_KEY` is available. The
+optional backend currently maps `search_twitter`, `search_twitter_advanced`, and
+`get_twitter_user_tweets` to `/api/v1/x/tweets/search`; the other tools keep using
+the 6551 API. Xquik search responses include `has_more` and `next_cursor`; pass
+`next_cursor` as the tool's `cursor` argument to continue a partial page.
 
 ---
 
@@ -493,7 +517,7 @@ npx @modelcontextprotocol/inspector uv --directory /path/to/twitter-mcp run twit
 ├── openclaw-skill/opentwitter/    # OpenClaw Skill
 ├── pyproject.toml
 ├── config.json
-└── src/twitter_mcp/
+└── src/opentwitter_mcp/
     ├── server.py              # Entry point
     ├── app.py                 # FastMCP instance
     ├── config.py              # Config loader
@@ -504,3 +528,5 @@ npx @modelcontextprotocol/inspector uv --directory /path/to/twitter-mcp run twit
 ## License
 
 MIT
+
+Xquik is an independent third-party service. Not affiliated with X Corp. "Twitter" and "X" are trademarks of X Corp.
