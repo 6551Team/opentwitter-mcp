@@ -251,8 +251,8 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 ```
 
 #### フォロワーイベント
-- `NEW_FOLLOWER` - 新しいフォロワー
-- `NEW_UNFOLLOWER` - フォロー解除
+- `NEW_FOLLOWER` - このアカウントがユーザーをフォローした
+- `NEW_UNFOLLOWER` - このアカウントがユーザーのフォローを解除した
 
 フォロワーイベントの content 構造（配列）：
 ```json

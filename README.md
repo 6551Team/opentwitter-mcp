@@ -251,8 +251,8 @@ Content structure for tweet events:
 ```
 
 #### Follower Events
-- `NEW_FOLLOWER` - New follower
-- `NEW_UNFOLLOWER` - Unfollower event
+- `NEW_FOLLOWER` - This account followed a user
+- `NEW_UNFOLLOWER` - This account unfollowed a user
 
 Content structure for follower events (array):
 ```json

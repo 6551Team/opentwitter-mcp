@@ -251,8 +251,8 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 ```
 
 #### 关注事件
-- `NEW_FOLLOWER` - 新增关注者
-- `NEW_UNFOLLOWER` - 取消关注
+- `NEW_FOLLOWER` - 该账号新关注了一个用户
+- `NEW_UNFOLLOWER` - 该账号取关了一个用户
 
 关注事件的 content 结构（数组）：
 ```json

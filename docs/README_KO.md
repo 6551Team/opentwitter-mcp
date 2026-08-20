@@ -251,8 +251,8 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 ```
 
 #### 팔로워 이벤트
-- `NEW_FOLLOWER` - 새 팔로워
-- `NEW_UNFOLLOWER` - 언팔로우
+- `NEW_FOLLOWER` - 이 계정이 사용자를 새로 팔로우함
+- `NEW_UNFOLLOWER` - 이 계정이 사용자를 언팔로우함
 
 팔로워 이벤트의 content 구조（배열）：
 ```json
