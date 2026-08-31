@@ -96,6 +96,7 @@ class TwitterAPIClient:
 
     async def search_twitter(
         self,
+        query: Optional[str] = None,
         keywords: Optional[str] = None,
         from_user: Optional[str] = None,
         to_user: Optional[str] = None,
@@ -117,6 +118,8 @@ class TwitterAPIClient:
             "maxResults": max_results,
             "product": product,
         }
+        if query:
+            body["query"] = query
         if keywords:
             body["keywords"] = keywords
         if from_user:

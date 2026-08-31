@@ -82,7 +82,7 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | `get_twitter_user` | 通过用户名获取资料 |
 | `get_twitter_user_by_id` | 通过 ID 获取资料 |
 | `get_twitter_user_tweets` | 获取用户推文 |
-| `search_twitter` | 基础搜索 |
+| `search_twitter` | 基础搜索（支持 `query`） |
 | `search_twitter_advanced` | 高级搜索（多过滤器） |
 | `get_twitter_follower_events` | 获取关注/取关事件 |
 | `get_twitter_deleted_tweets` | 获取删推数据 |

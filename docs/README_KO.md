@@ -82,7 +82,7 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | `get_twitter_user` | 사용자명으로 프로필 조회 |
 | `get_twitter_user_by_id` | ID로 프로필 조회 |
 | `get_twitter_user_tweets` | 사용자 최신 트윗 조회 |
-| `search_twitter` | 기본 필터로 트윗 검색 |
+| `search_twitter` | `query` 및 기본 필터로 트윗 검색 |
 | `search_twitter_advanced` | 다중 필터로 고급 검색 |
 | `get_twitter_follower_events` | 팔로우/언팔로우 이벤트 조회 |
 | `get_twitter_deleted_tweets` | 삭제된 트윗 조회 |

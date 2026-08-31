@@ -78,6 +78,7 @@ async def get_twitter_user_tweets(
 @mcp.tool()
 async def search_twitter(
     ctx: Context,
+    query: str = "",
     keywords: str = "",
     from_user: str = "",
     hashtag: str = "",
@@ -87,6 +88,7 @@ async def search_twitter(
     """Search Twitter/X for tweets matching criteria.
 
     Args:
+        query: Complete search query. If set, it is passed through as-is.
         keywords: Search keywords.
         from_user: Filter tweets from specific user (without @).
         hashtag: Filter by hashtag (without #).
@@ -97,6 +99,7 @@ async def search_twitter(
     limit = min(max(1, limit), 100)
     try:
         result = await api.search_twitter(
+            query=query or None,
             keywords=keywords or None,
             from_user=from_user or None,
             hashtag=hashtag or None,

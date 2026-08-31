@@ -82,7 +82,7 @@ Once connected, just ask your AI assistant:
 | `get_twitter_user` | Get user profile by username |
 | `get_twitter_user_by_id` | Get user profile by numeric ID |
 | `get_twitter_user_tweets` | Get recent tweets from a user |
-| `search_twitter` | Search tweets with basic filters |
+| `search_twitter` | Search tweets with `query` and basic filters |
 | `search_twitter_advanced` | Advanced search with multiple filters |
 | `get_twitter_follower_events` | Get follower/unfollower events |
 | `get_twitter_deleted_tweets` | Get deleted tweets from a user |

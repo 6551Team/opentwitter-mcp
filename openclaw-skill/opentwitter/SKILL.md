@@ -88,6 +88,14 @@ curl -s -X POST "https://ai.6551.io/open/twitter_user_tweets" \
 
 Search tweets with various filters.
 
+**Search with `query`:**
+```bash
+curl -s -X POST "https://ai.6551.io/open/twitter_search" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "from:VitalikButerin bitcoin -filter:replies", "maxResults": 20, "product": "Top"}'
+```
+
 ```bash
 curl -s -X POST "https://ai.6551.io/open/twitter_search" \
   -H "Authorization: Bearer $OPENNEWS_TOKEN" \
@@ -115,6 +123,7 @@ curl -s -X POST "https://ai.6551.io/open/twitter_search" \
 
 | Parameter         | Type    | Default | Description                         |
 |------------------|---------|---------|-------------------------------------|
+| `query`          | string  | -       | Complete search string; overrides other filters |
 | `keywords`       | string  | -       | Search keywords                     |
 | `fromUser`       | string  | -       | Tweets from specific user           |
 | `toUser`         | string  | -       | Tweets to specific user             |
@@ -130,6 +139,8 @@ curl -s -X POST "https://ai.6551.io/open/twitter_search" \
 | `lang`           | string  | -       | Language code (e.g. "en", "zh")     |
 | `product`        | string  | "Top"   | "Top" or "Latest"                   |
 | `maxResults`     | integer | 20      | Max tweets (1-100)                  |
+
+If `query` is set, it is passed through as-is and the other search fields are ignored.
 
 ### 5. Get Follower Events
 
@@ -518,6 +529,14 @@ curl -s -X POST "https://ai.6551.io/open/twitter_search" \
   -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"keywords": "bitcoin", "minLikes": 1000, "product": "Top", "maxResults": 20}'
+```
+
+### Query Search
+```bash
+curl -s -X POST "https://ai.6551.io/open/twitter_search" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "from:VitalikButerin bitcoin -filter:replies", "maxResults": 20, "product": "Top"}'
 ```
 
 ## Notes

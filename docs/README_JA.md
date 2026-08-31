@@ -82,7 +82,7 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_user` | ユーザー名でプロフィール取得 |
 | `get_twitter_user_by_id` | ID でプロフィール取得 |
 | `get_twitter_user_tweets` | ユーザーの最新ツイート取得 |
-| `search_twitter` | 基本フィルターでツイート検索 |
+| `search_twitter` | `query` と基本フィルターでツイート検索 |
 | `search_twitter_advanced` | 複数フィルターで高度な検索 |
 | `get_twitter_follower_events` | フォロー/フォロー解除イベント取得 |
 | `get_twitter_deleted_tweets` | 削除ツイート取得 |
