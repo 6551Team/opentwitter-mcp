@@ -285,12 +285,13 @@ Add a Twitter user to monitoring list.
 curl -s -X POST "https://ai.6551.io/open/twitter_watch_add" \
   -H "Authorization: Bearer $OPENNEWS_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"username": "elonmusk", "newTweetBol": true, "newFlwBol": false}'
+  -d '{"username": "elonmusk", "remark": "Custom note", "newTweetBol": true, "newFlwBol": false}'
 ```
 
 | Parameter        | Type    | Default       | Description                              |
 |-----------------|---------|---------------|------------------------------------------|
 | `username`      | string  | required      | Twitter username (without @)             |
+| `remark`        | string  | -             | Custom note for this watch entry         |
 | `newTweetBol`   | boolean | true (server) | Monitor new tweets                       |
 | `newFlwBol`     | boolean | false (server)| Monitor new followers                    |
 | `newUnFlwBol`   | boolean | false (server)| Monitor unfollowers                      |
