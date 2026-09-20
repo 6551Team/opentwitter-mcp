@@ -92,7 +92,7 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | `get_twitter_quote_tweets_by_id` | 通过 ID 获取引用该推文的推文列表 |
 | `get_twitter_retweet_users_by_id` | 通过 ID 获取转推该推文的用户列表 |
 | `get_twitter_watch` | 获取所有监控的 Twitter 用户 |
-| `add_twitter_watch` | 添加 Twitter 用户到监控列表（支持配置事件类型和 `remark`） |
+| `add_twitter_watch` | 添加 Twitter 用户到监控列表（支持配置事件类型、`remark` 和可选 `group_name`） |
 | `delete_twitter_watch` | 从监控列表删除 Twitter 用户 |
 
 ---

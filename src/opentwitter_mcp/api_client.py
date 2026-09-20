@@ -213,9 +213,12 @@ class TwitterAPIClient:
         update_banner: Optional[bool] = None,
         new_ca: Optional[bool] = None,
         tweet_topping: Optional[bool] = None,
+        group_name: Optional[str] = None,
     ) -> dict:
         """POST /open/twitter_watch_add — 添加Twitter监控用户"""
         body: dict[str, Any] = {"username": username}
+        if group_name is not None:
+            body["groupName"] = group_name
         if new_tweet is not None:
             body["newTweetBol"] = new_tweet
         if new_follow is not None:

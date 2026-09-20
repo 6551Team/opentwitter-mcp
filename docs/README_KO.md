@@ -92,7 +92,7 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | `get_twitter_quote_tweets_by_id` | ID로 특정 트윗의 인용 트윗 조회 |
 | `get_twitter_retweet_users_by_id` | ID로 특정 트윗의 리트윗 사용자 조회 |
 | `get_twitter_watch` | 모니터링 중인 Twitter 사용자 목록 조회 |
-| `add_twitter_watch` | Twitter 사용자를 모니터링 목록에 추가 (이벤트 유형 옵션과 `remark` 지원) |
+| `add_twitter_watch` | Twitter 사용자를 모니터링 목록에 추가 (이벤트 유형, `remark`, 선택적 `group_name` 지원) |
 | `delete_twitter_watch` | 모니터링 목록에서 Twitter 사용자 삭제 |
 
 ---

@@ -341,11 +341,15 @@ async def add_twitter_watch(
     update_banner: bool | None = None,
     new_ca: bool | None = None,
     tweet_topping: bool | None = None,
+    group_name: str | None = None,
 ) -> dict:
     """Add a Twitter user to monitoring list.
 
     Args:
         username: Twitter username to monitor (without @).
+        group_name: Optional watch group name. Existing groups are reused; a new
+            group is created when no matching group exists. Passing a different
+            group for an already monitored user moves it to that group.
         new_tweet: Monitor new tweets (default: true on server).
         new_follow: Monitor new followers (default: false on server).
         new_unfollow: Monitor unfollowers (default: false on server).
@@ -375,6 +379,7 @@ async def add_twitter_watch(
             update_banner=update_banner,
             new_ca=new_ca,
             tweet_topping=tweet_topping,
+            group_name=group_name,
         )
         return make_serializable({"success": True, "data": result.get("data")})
     except Exception as e:
