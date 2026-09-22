@@ -72,6 +72,8 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | "@elonmusk을 언팔로우한 사람은?" | 언팔로우 이벤트 조회 |
 | "@elonmusk이 삭제한 트윗은?" | 삭제된 트윗 조회 |
 | "어떤 KOL이 @elonmusk을 팔로우해?" | KOL 팔로워 조회 |
+| "이 밈 토큰의 주장과 콜아웃 증거를 보여줘" | fomo/pump 토큰 증거 조회 |
+| "이 토큰의 후속 발언과 매수/매도를 보여줘" | 밈 활동 및 거래 증거 조회 |
 
 ---
 
@@ -87,6 +89,8 @@ twitter-mcp MCP 서버를 검토하고 설치해주세요. 프로젝트는 로�
 | `get_twitter_follower_events` | 팔로우/언팔로우 이벤트 조회 |
 | `get_twitter_deleted_tweets` | 삭제된 트윗 조회 |
 | `get_twitter_kol_followers` | KOL(키 오피니언 리더) 팔로워 조회 |
+| `get_meme_token_evidence` | 밈 토큰 주장 및 콜아웃 증거 조회 |
+| `get_meme_activity` | 밈 토큰 발언 및 매수/매도 증거 조회 |
 | `get_twitter_article_by_id` | ID로 Twitter 기사 조회 |
 | `get_twitter_tweet_by_id` | ID로 트윗 조회 (중첩된 답글/인용 포함) |
 | `get_twitter_quote_tweets_by_id` | ID로 특정 트윗의 인용 트윗 조회 |

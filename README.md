@@ -72,6 +72,8 @@ Once connected, just ask your AI assistant:
 | "Who unfollowed @elonmusk" | Get unfollower events |
 | "What tweets did @elonmusk delete" | Get deleted tweets |
 | "Which KOLs follow @elonmusk" | Get KOL followers |
+| "Show the thesis and callout evidence for this meme token" | Get token evidence from fomo/pump feeds |
+| "Show the later statements and buys/sells for this token" | Get meme activity and trade evidence |
 
 ---
 
@@ -87,6 +89,8 @@ Once connected, just ask your AI assistant:
 | `get_twitter_follower_events` | Get follower/unfollower events |
 | `get_twitter_deleted_tweets` | Get deleted tweets from a user |
 | `get_twitter_kol_followers` | Get KOL (Key Opinion Leader) followers |
+| `get_meme_token_evidence` | Get thesis and callout evidence for a meme token |
+| `get_meme_activity` | Get meme token statements and buy/sell evidence |
 | `get_twitter_article_by_id` | Get Twitter article by ID |
 | `get_twitter_tweet_by_id` | Get tweet by ID with nested reply/quote tweets |
 | `get_twitter_quote_tweets_by_id` | Get tweets that quote a specific tweet |
@@ -320,6 +324,13 @@ Content structure for follower events (array):
   "urls": [{"url": "https://..."}]
 }
 ```
+
+### Meme Feed Item
+
+Meme evidence tools return fomo/pump feed data, including `platform`, `kind`,
+`author`, `text`, `createdAt`, and (for trades) a `trade` object. Use
+`get_meme_token_evidence` for the initial `thesis`/`callout` view and
+`get_meme_activity` for later statements and `buy`/`sell` evidence.
 
 ---
 

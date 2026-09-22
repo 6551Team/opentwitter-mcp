@@ -1,6 +1,6 @@
 ---
 name: opentwitter
-description: Twitter/X data via the 6551 API. Supports user profiles, tweet search, user tweets, follower events, deleted tweets, and KOL followers.
+description: Twitter/X and meme evidence data via the 6551 API. Supports user profiles, tweet search, user tweets, follower events, deleted tweets, KOL followers, meme token evidence, and meme activity.
 
 user-invocable: true
 metadata:
@@ -40,6 +40,36 @@ Authorization: Bearer $OPENNEWS_TOKEN
 ```
 
 ---
+
+## Meme Evidence Operations
+
+### Get Meme Token Evidence
+
+Get the initial thesis and callout evidence for a meme token from the fomo/pump feeds.
+
+```bash
+curl -s -X POST "https://ai.6551.io/open/meme/token-evidence" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"coin": "GADj8JQ8iQLQD5S6ScvncJWmGs7PkwHnXsBrEUns6ue5", "limit": 100}'
+```
+
+Parameters: `coin`, `kind`, `platform`, `handle`, `user`, `since`, and `limit`.
+The default kind is `thesis,callout`; `limit` is capped at 1000.
+
+### Get Meme Activity
+
+Get later statements and buy/sell evidence for meme tokens.
+
+```bash
+curl -s -X POST "https://ai.6551.io/open/meme/activity" \
+  -H "Authorization: Bearer $OPENNEWS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"coin": "GADj8JQ8iQLQD5S6ScvncJWmGs7PkwHnXsBrEUns6ue5", "kind": "trade", "limit": 100}'
+```
+
+Parameters: `coin`, `handle`, `user`, `wallet`, `kind`, `platform`, `since`, and `limit`.
+`kind=trade` is an alias for `buy` and `sell`.
 
 ## Twitter Operations
 

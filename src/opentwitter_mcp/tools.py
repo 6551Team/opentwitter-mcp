@@ -271,6 +271,101 @@ async def get_twitter_kol_followers(username: str, ctx: Context) -> dict:
 
 
 @mcp.tool()
+async def get_meme_token_evidence(
+    coin: str,
+    ctx: Context,
+    kind: str | list[str] | None = None,
+    platform: str | list[str] | None = None,
+    handle: str | list[str] | None = None,
+    user: str | list[str] | None = None,
+    since: int = 0,
+    limit: int = 200,
+) -> dict:
+    """Get thesis and callout evidence for a meme token from fomo/pump feeds.
+
+    Args:
+        coin: Full token contract address or Solana mint.
+        kind: Optional event kind or kinds. Defaults to thesis and callout.
+        platform: Optional platform or platforms (fomo or pump).
+        handle: Optional author handle or handles.
+        user: Optional author user ID or IDs.
+        since: Return events after this upstream sequence number.
+        limit: Maximum events to return (default 200, max 1000).
+    """
+    api = ctx.request_context.lifespan_context.api
+    limit = min(max(1, limit), 1000)
+    since = max(0, since)
+    try:
+        result = await api.get_meme_token_evidence(
+            coin=coin,
+            kind=kind,
+            platform=platform,
+            handle=handle,
+            user=user,
+            since=since,
+            limit=limit,
+        )
+        data = result.get("data", {})
+        return make_serializable({
+            "success": True,
+            "coin": coin,
+            "data": data,
+            "count": data.get("count", 0) if isinstance(data, dict) else 0,
+        })
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
+async def get_meme_activity(
+    ctx: Context,
+    coin: str | None = None,
+    handle: str | list[str] | None = None,
+    user: str | list[str] | None = None,
+    wallet: str | list[str] | None = None,
+    kind: str | list[str] | None = None,
+    platform: str | list[str] | None = None,
+    since: int = 0,
+    limit: int = 200,
+) -> dict:
+    """Get meme token statements and buy/sell evidence from fomo/pump feeds.
+
+    Args:
+        coin: Optional full token contract address or Solana mint.
+        handle: Optional author handle or handles.
+        user: Optional author user ID or IDs.
+        wallet: Optional pump wallet or wallets.
+        kind: Optional event kind or kinds (trade is an alias for buy and sell).
+        platform: Optional platform or platforms (fomo or pump).
+        since: Return events after this upstream sequence number.
+        limit: Maximum events to return (default 200, max 1000).
+    """
+    api = ctx.request_context.lifespan_context.api
+    limit = min(max(1, limit), 1000)
+    since = max(0, since)
+    try:
+        result = await api.get_meme_activity(
+            coin=coin,
+            handle=handle,
+            user=user,
+            wallet=wallet,
+            kind=kind,
+            platform=platform,
+            since=since,
+            limit=limit,
+        )
+        data = result.get("data", {})
+        return make_serializable({
+            "success": True,
+            "coin": coin,
+            "data": data,
+            "count": data.get("count", 0) if isinstance(data, dict) else 0,
+        })
+    except Exception as e:
+        return {"success": False, "error": str(e) or repr(e)}
+
+
+@mcp.tool()
 async def get_twitter_article_by_id(article_id: str, ctx: Context) -> dict:
     """Get Twitter article by ID.
 

@@ -72,6 +72,8 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | 「@elonmusk をフォロー解除したのは誰？」 | フォロー解除イベント取得 |
 | 「@elonmusk が削除したツイートは？」 | 削除ツイート取得 |
 | 「どの KOL が @elonmusk をフォローしている？」 | KOL フォロワー取得 |
+| 「このミームトークンの主張とコールアウト証拠を見せて」 | fomo/pump のトークン証拠取得 |
+| 「このトークンの後続発言と売買を見せて」 | ミーム活動と取引証拠取得 |
 
 ---
 
@@ -87,6 +89,8 @@ twitter-mcp という MCP サーバーをレビューしてインストールし
 | `get_twitter_follower_events` | フォロー/フォロー解除イベント取得 |
 | `get_twitter_deleted_tweets` | 削除ツイート取得 |
 | `get_twitter_kol_followers` | KOL（キーオピニオンリーダー）フォロワー取得 |
+| `get_meme_token_evidence` | ミームトークンの主張・コールアウト証拠取得 |
+| `get_meme_activity` | ミームトークンの発言・売買証拠取得 |
 | `get_twitter_article_by_id` | ID で Twitter 記事取得 |
 | `get_twitter_tweet_by_id` | ID でツイート取得（ネストされた返信/引用を含む） |
 | `get_twitter_quote_tweets_by_id` | ID で特定ツイートの引用ツイート取得 |

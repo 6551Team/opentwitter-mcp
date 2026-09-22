@@ -183,6 +183,55 @@ class TwitterAPIClient:
         resp = await self._request("POST", f"{self.base_url}/open/twitter_kol_followers", json={"username": username})
         return resp.json()
 
+    async def get_meme_token_evidence(
+        self,
+        coin: str,
+        kind: str | list[str] | None = None,
+        platform: str | list[str] | None = None,
+        handle: str | list[str] | None = None,
+        user: str | list[str] | None = None,
+        since: int = 0,
+        limit: int = 200,
+    ) -> dict:
+        """POST /open/meme/token-evidence — Get meme token thesis/callout evidence"""
+        body: dict[str, Any] = {"coin": coin, "since": since, "limit": limit}
+        for key, value in (
+            ("kind", kind),
+            ("platform", platform),
+            ("handle", handle),
+            ("user", user),
+        ):
+            if value:
+                body[key] = value
+        resp = await self._request("POST", f"{self.base_url}/open/meme/token-evidence", json=body)
+        return resp.json()
+
+    async def get_meme_activity(
+        self,
+        coin: str | None = None,
+        handle: str | list[str] | None = None,
+        user: str | list[str] | None = None,
+        wallet: str | list[str] | None = None,
+        kind: str | list[str] | None = None,
+        platform: str | list[str] | None = None,
+        since: int = 0,
+        limit: int = 200,
+    ) -> dict:
+        """POST /open/meme/activity — Get meme token activity and trade evidence"""
+        body: dict[str, Any] = {"since": since, "limit": limit}
+        for key, value in (
+            ("coin", coin),
+            ("handle", handle),
+            ("user", user),
+            ("wallet", wallet),
+            ("kind", kind),
+            ("platform", platform),
+        ):
+            if value:
+                body[key] = value
+        resp = await self._request("POST", f"{self.base_url}/open/meme/activity", json=body)
+        return resp.json()
+
     async def get_twitter_article_by_id(self, article_id: str) -> dict:
         """POST /open/twitter_article_by_id — Get Twitter article by ID"""
         resp = await self._request("POST", f"{self.base_url}/open/twitter_article_by_id", json={"id": article_id})

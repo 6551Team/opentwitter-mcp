@@ -72,6 +72,8 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | "谁取关了 elonmusk" | 获取取关事件 |
 | "elonmusk 删了哪些推文" | 获取删推数据 |
 | "哪些大V关注了 elonmusk" | 获取大V关注者 |
+| "查看这个 Meme 代币的观点和喊单证据" | 获取 fomo/pump 的代币证据 |
+| "查看这个代币后续表态和买卖" | 获取 Meme 活动和交易证据 |
 
 ---
 
@@ -87,6 +89,8 @@ cp -r openclaw-skill/opentwitter ~/.openclaw/skills/
 | `get_twitter_follower_events` | 获取关注/取关事件 |
 | `get_twitter_deleted_tweets` | 获取删推数据 |
 | `get_twitter_kol_followers` | 获取大V关注者 |
+| `get_meme_token_evidence` | 获取 Meme 代币的观点和喊单证据 |
+| `get_meme_activity` | 获取 Meme 代币后续表态和买卖证据 |
 | `get_twitter_article_by_id` | 通过 ID 获取 Twitter 文章 |
 | `get_twitter_tweet_by_id` | 通过 ID 获取推文（含嵌套回复/引用） |
 | `get_twitter_quote_tweets_by_id` | 通过 ID 获取引用该推文的推文列表 |
@@ -320,6 +324,13 @@ $env:OPENNEWS_TOKEN = "<your-token>"
   "urls": [{"url": "https://..."}]
 }
 ```
+
+### Meme Feed 条目
+
+Meme 证据工具返回 fomo/pump feed 数据，包含 `platform`、`kind`、`author`、
+`text`、`createdAt`，以及交易事件中的 `trade`。首轮观点查询使用
+`get_meme_token_evidence`（默认 `thesis`/`callout`），后续表态和买卖证据使用
+`get_meme_activity`。
 
 ---
 
