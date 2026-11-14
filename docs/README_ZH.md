@@ -139,6 +139,10 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 
 **端点**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
 
+**美国端点（服务器在美国时延迟更低）**: `wss://open-api.us.newsliquid.com/open/twitter_wss?token=YOUR_TOKEN`
+
+如果你的客户端部署在美国（例如 AWS us-east-1），建议改连美国端点。它与 `wss://ai.6551.io` 使用相同的 token、协议和消息格式，只需替换地址。在 us-east-1 实测，大部分推文到达时间**提前约 250 ms**（中位数：推文发出后约 200 ms 到达，默认端点约 450 ms）；其余账号的延迟与默认端点基本相同。美国以外的客户端请继续使用默认端点。
+
 订阅你监控的 Twitter 账号的实时事件。
 
 ### 心跳

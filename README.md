@@ -139,6 +139,10 @@ Also supports `config.json` in the project root (env vars take precedence):
 
 **Endpoint**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
 
+**US endpoint (lower latency for servers in the US)**: `wss://open-api.us.newsliquid.com/open/twitter_wss?token=YOUR_TOKEN`
+
+If your client runs in the US (for example AWS us-east-1), connect to the US endpoint instead. It uses the same token, protocol and message format as `wss://ai.6551.io`, so only the URL changes. Measured from us-east-1, most tweets arrive about **250 ms earlier** (median: about 200 ms after posting, versus about 450 ms on the default endpoint); for the remaining accounts latency is about the same as on the default endpoint. Clients outside the US should keep using the default endpoint.
+
 Subscribe to real-time events from your monitored Twitter accounts.
 
 ### Heartbeat

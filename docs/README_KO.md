@@ -139,6 +139,10 @@ $env:OPENNEWS_TOKEN = "<your-token>"
 
 **엔드포인트**: `wss://ai.6551.io/open/twitter_wss?token=YOUR_TOKEN`
 
+**미국 엔드포인트 (미국 서버에서 지연 감소)**: `wss://open-api.us.newsliquid.com/open/twitter_wss?token=YOUR_TOKEN`
+
+클라이언트가 미국(예: AWS us-east-1)에서 실행된다면 미국 엔드포인트에 연결하는 것을 권장합니다. `wss://ai.6551.io`와 동일한 토큰, 프로토콜, 메시지 형식을 사용하므로 URL만 바꾸면 됩니다. us-east-1에서 측정한 결과 대부분의 트윗이 **약 250 ms 더 빨리** 도착합니다(중앙값: 게시 후 약 200 ms, 기본 엔드포인트는 약 450 ms). 나머지 계정의 지연은 기본 엔드포인트와 거의 같습니다. 미국 외 지역의 클라이언트는 기본 엔드포인트를 계속 사용하세요.
+
 모니터링 중인 Twitter 계정의 실시간 이벤트를 구독합니다.
 
 ### 하트비트
